@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 03 — Pricing Models & Packaging</title>
+<style>
+  :root{--paper:#fdfaf3;--ink:#201c17;--ink-2:#5c544a;--rule:#e2dac9;--accent:#9a3b2e;--good:#3f6f52;--bad:#a33}
+  *{box-sizing:border-box}html{font-size:18px}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:42rem;margin:0 auto;padding:3.5rem 1.5rem 6rem}
+  .kicker{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 .5rem}
+  h1{font-size:2.2rem;line-height:1.08;margin:0 0 .5rem;font-weight:600}
+  .dek{color:var(--ink-2);font-style:italic;font-size:1.15rem;margin:0 0 2.2rem}
+  h2{font-size:1.3rem;margin:2.8rem 0 .6rem;font-weight:600}
+  p{margin:0 0 1.1rem}.es{color:var(--accent);font-weight:600}a{color:var(--accent)}strong{font-weight:600}
+  .lead::first-letter{font-size:3.1rem;line-height:.8;float:left;padding:.05em .08em 0 0;font-weight:600;color:var(--accent)}
+  blockquote{margin:1.6rem 0;padding:.2rem 0 .2rem 1.2rem;border-left:3px solid var(--rule);color:var(--ink-2);font-style:italic}
+  .callout{background:#f4eede;border:1px solid var(--rule);border-radius:10px;padding:1.1rem 1.3rem;margin:1.6rem 0}
+  .callout .tag{font-family:ui-monospace,monospace;font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:.4rem}
+  table{width:100%;border-collapse:collapse;margin:1.4rem 0;font-size:.9rem}
+  th,td{text-align:left;padding:.5rem .6rem;border-bottom:1px solid var(--rule);vertical-align:top}
+  th{font-size:.74rem;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-2)}
+  .tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem;margin:1.6rem 0}
+  .tier{border:1px solid var(--rule);border-radius:10px;padding:.9rem;background:#fff}
+  .tier.best{border-color:var(--accent);box-shadow:0 2px 0 var(--accent)}
+  .tier h4{margin:0 0 .2rem;font-size:1rem}
+  .tier .pr{font-family:ui-monospace,monospace;color:var(--accent);font-weight:600;margin:0 0 .5rem}
+  .tier ul{margin:0;padding-left:1.1rem;font-size:.83rem;color:var(--ink-2)}
+  .quiz{margin:1rem 0;border:1px solid var(--rule);border-radius:12px;padding:1.3rem 1.4rem;background:#faf4e6}
+  .quiz h3{margin:0 0 .2rem;font-size:1.05rem}
+  .q{margin:1.4rem 0}.q:first-of-type{margin-top:.6rem}.q p{margin:0 0 .6rem;font-weight:600}
+  .opt{display:block;width:100%;text-align:left;font:inherit;font-size:.97rem;background:#fff;border:1px solid var(--rule);border-radius:8px;padding:.6rem .8rem;margin:.4rem 0;cursor:pointer;transition:border-color .15s,background .15s}
+  .opt:hover{border-color:#5c6b8a}.opt.right{border-color:var(--good);background:#eef5ee}.opt.wrong{border-color:var(--bad);background:#f7eaea}.opt:disabled{cursor:default}
+  .fb{font-size:.9rem;margin:.5rem 0 0;min-height:1.2rem}.fb.right{color:var(--good)}.fb.wrong{color:var(--bad)}
+  .score{font-weight:600;margin-top:1rem;color:var(--ink-2)}
+  .win{border:2px solid var(--good);border-radius:12px;padding:1.1rem 1.3rem;margin:2.4rem 0;background:#eef5ee}
+  .win .tag,.src .tag{font-family:ui-monospace,monospace;font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;display:block;margin-bottom:.4rem}.win .tag{color:var(--good)}
+  .src{border:1px dashed var(--accent);border-radius:12px;padding:1.1rem 1.3rem;margin:2rem 0}.src .tag{color:var(--accent)}
+  footer{margin-top:3.5rem;padding-top:1.2rem;border-top:1px solid var(--rule);font-size:.88rem;color:var(--ink-2)}
+  .nav{display:flex;justify-content:space-between;font-family:ui-monospace,monospace;font-size:.8rem;margin-top:1rem}
+  @media(max-width:540px){.tiers{grid-template-columns:1fr}}
+  @media print{body{background:#fff}.quiz{break-inside:avoid}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="kicker">Founder School · Lesson 03 · Pricing</p>
+  <h1>Models &amp; packaging</h1>
+  <p class="dek">You know the floor and the ceiling. Now the shape: <em>how</em> you charge, and how you arrange what people get for the money. This is where most of your revenue is actually won or lost.</p>
+
+  <p class="lead">There's a quiet truth in pricing: <strong>how</strong> you charge often matters more than <strong>how much.</strong> The same product at "$5/mo," "$0.10/asset," or "$49 once" attracts different people, churns differently, and feels different — before you've changed a single number. Let's build the vocabulary, then apply it to EncoreShot's open questions.</p>
+
+  <h2>The three pricing models</h2>
+  <table>
+    <thead><tr><th>Model</th><th>You charge by…</th><th>Fits when…</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Subscription</strong></td><td>time (per month/year)</td><td>usage is steady &amp; the product is a habit</td></tr>
+      <tr><td><strong>Usage-based</strong></td><td>what they consume (assets, exports)</td><td>usage is spiky and tracks the value/cost</td></tr>
+      <tr><td><strong>One-time / lifetime</strong></td><td>once, up front</td><td>buyers are occasional; recurring feels unfair</td></tr>
+    </tbody>
+  </table>
+  <p>Most real companies <strong>blend</strong> these — nearly half of SaaS run two or three at once (<a href="https://www.getmonetizely.com/blogs/the-2026-guide-to-saas-ai-and-agentic-pricing-models">Monetizely, 2026</a>). The choice isn't religious; it's about matching how the customer experiences value.</p>
+
+  <div class="callout">
+    <span class="tag">EncoreShot — the model fit</span>
+    Your hobbyist is the textbook <em>occasional</em> buyer: a few shows a year, no hard deadline, <a href="../reference/glossary.html#wtp">WTP</a> $0–5/mo. A monthly subscription invites them to cancel between concerts. That's exactly why your pricing brief floats a <strong>one-time / lifetime "Founding" license</strong> — it captures the occasional shooter who'd churn out of a subscription. The Pro persona, who shoots weekly under deadline, is where subscription earns its keep later. <em>Different personas may want different models — that's allowed.</em>
+  </div>
+
+  <h2>The value metric: what your meter measures</h2>
+  <p>A <a href="../reference/glossary.html#value-metric">value metric</a> is the unit you charge by — Slack charges per active user, Dropbox per GB, Twilio per message. The golden rule: <strong>the metric should rise with the value the customer gets</strong> (so paying more never feels like a punishment), and ideally track your cost too. Pick wrong and growth fights you.</p>
+  <p>For EncoreShot the candidates are <em>shows/sessions</em>, <em>assets scored</em>, or <em>exports</em>. Note the trap: "assets scored" tracks your AI <em>cost</em> beautifully but is a <em>terrible</em> customer meter — nobody wants a bill that grows because they shot more frames. <strong>Exports</strong> (or just unlimited under a flat tier) tracks <em>their</em> value — the keeper they posted — far better.</p>
+
+  <h2>Good-Better-Best: let people sort themselves</h2>
+  <p>The most reliable packaging on earth is three tiers (<a href="https://hbr.org/2018/09/the-good-better-best-approach-to-pricing">Rafi Mohammed, HBR</a>). It works because customers <strong>self-select</strong> by willingness to pay, and the mere presence of a premium tier makes the middle look reasonable (the "anchor"). What separates the tiers is a <a href="../reference/glossary.html#fence">price fence</a> — a feature or limit that gently stops a high-value user from buying the cheap plan.</p>
+
+  <div class="tiers">
+    <div class="tier"><h4>Free / Fan</h4><p class="pr">$0</p><ul><li>1 show</li><li>Full scoring</li><li>Watermarked or limited exports</li></ul></div>
+    <div class="tier"><h4>Founding</h4><p class="pr">$39 once</p><ul><li>Unlimited shows</li><li>All export formats</li><li>Grandfathered as Pro launches</li></ul></div>
+    <div class="tier best"><h4>Pro (later)</h4><p class="pr">$12/mo</p><ul><li>300–800 files/show</li><li>Re-scoring, priority</li><li>Deadline-grade speed</li></ul></div>
+  </div>
+  <p class="es" style="font-size:.85rem">Illustrative only — numbers are placeholders to make the structure concrete, not a recommendation yet.</p>
+
+  <h2>Designing the free tier (your hardest open question)</h2>
+  <p>A free tier is a marketing cost, not charity — its job is to deliver the <strong>"aha moment"</strong> and then create a reason to pay. The cardinal rule from your own notes: the free constraint must let the user <em>see export quality on their own content</em> before paying, or the trust mechanism breaks. So the gate should sit <strong>after</strong> the magic, not before it. Gate on <em>quantity</em> (1 show, N exports) — never on <em>quality</em> (don't ship a worse export to free users; that poisons the proof).</p>
+
+  <blockquote>"Set the perceived value at ~10× the price; then practise raising prices until you lose about 20% of customers." — Kevin Hale, YC (Lesson 01)</blockquote>
+
+  <h2>Check yourself</h2>
+  <div class="quiz">
+    <h3>Three questions</h3>
+    <div class="q" data-correct="0" data-exp="A value metric is the unit you bill by — it should rise with the value the customer receives.">
+      <p>1. A value metric is the unit you…</p>
+      <button class="opt">charge the customer by</button>
+      <button class="opt">pay your provider by</button>
+      <button class="opt">measure your servers by</button>
+      <p class="fb"></p>
+    </div>
+    <div class="q" data-correct="0" data-exp="Three tiers let buyers sort themselves by willingness to pay, and the top tier anchors the middle.">
+      <p>2. Good-better-best works because customers…</p>
+      <button class="opt">self-select their own tier</button>
+      <button class="opt">always pick the cheapest</button>
+      <button class="opt">avoid choosing any tier</button>
+      <p class="fb"></p>
+    </div>
+    <div class="q" data-correct="0" data-exp="The free tier must deliver the aha moment on the user's own content — gate on quantity, never quality.">
+      <p>3. A good free tier should let users…</p>
+      <button class="opt">feel the real value</button>
+      <button class="opt">see every locked feature</button>
+      <button class="opt">get a worse export</button>
+      <p class="fb"></p>
+    </div>
+    <p class="score" id="score"></p>
+  </div>
+
+  <div class="win">
+    <span class="tag">Your one win from this lesson</span>
+    You can now reason about EncoreShot's pricing as three separable decisions — <strong>model</strong> (lifetime for the occasional fan), <strong>value metric</strong> (charge by exports/shows, not assets-scored), and <strong>packaging</strong> (good-better-best with a quantity gate that fires after the aha moment). That turns "what do I charge?" from one scary question into three answerable ones.
+  </div>
+
+  <div class="src">
+    <span class="tag">Primary source — read this next (~25 min)</span>
+    <strong><a href="https://hbr.org/2018/09/the-good-better-best-approach-to-pricing">"The Good-Better-Best Approach to Pricing" — Rafi Mohammed, HBR</a></strong><br>
+    The definitive piece on tiering and fences. Pair with the <a href="https://www.getmonetizely.com/blogs/the-2026-guide-to-saas-ai-and-agentic-pricing-models">2026 Guide to SaaS/AI pricing models</a> for the model-blend landscape.
+  </div>
+
+  <footer>
+    <strong>Ask me anything.</strong> Live ones for you: "lifetime vs $5/mo for the wedge?", "what should a redeemed voucher unlock?", "is a free tier even right before launch?" — these are advisor-mode questions; say the word. Next: <em>Lesson 04 — Customer discovery</em> (how to learn what to charge by talking to fans without fooling yourself).
+    <div class="nav"><span>← <a href="0002-ai-unit-economics.html">Lesson 02</a></span><span><a href="0004-customer-discovery.html">Lesson 04 →</a></span></div>
+  </footer>
+</div>
+<script>
+document.querySelectorAll('.q').forEach(function(q){var correct=+q.dataset.correct,opts=q.querySelectorAll('.opt'),fb=q.querySelector('.fb'),exp=q.dataset.exp;
+  opts.forEach(function(o,i){o.addEventListener('click',function(){if(q.dataset.done)return;q.dataset.done="1";opts.forEach(function(b){b.disabled=true});
+    if(i===correct){o.classList.add('right');fb.className='fb right';fb.textContent="Right. "+exp;}else{o.classList.add('wrong');opts[correct].classList.add('right');fb.className='fb wrong';fb.textContent="Not quite — "+exp;}score();});});});
+function score(){var qs=document.querySelectorAll('.q'),done=document.querySelectorAll('.q[data-done]').length,el=document.getElementById('score');if(!el)return;
+  if(done<qs.length){el.textContent=done+" / "+qs.length+" answered…";return;}var got=qs.length-document.querySelectorAll('.opt.wrong').length;
+  el.textContent="You got "+got+" / "+qs.length+". "+(got===qs.length?"Locked in. 🎯":"Re-read the bit above any you missed.");}
+</script>
+</body>
+</html>
