@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 01 — Cost, Price, Value</title>
+<style>
+  :root{
+    --paper:#fdfaf3; --ink:#201c17; --ink-2:#5c544a; --rule:#e2dac9;
+    --accent:#9a3b2e; --good:#3f6f52; --bad:#a33;
+    --cost:#b08968; --price:#5c6b8a; --value:#3f6f52;
+  }
+  *{box-sizing:border-box}
+  html{font-size:18px}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:42rem;margin:0 auto;padding:3.5rem 1.5rem 6rem}
+  .kicker{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:.72rem;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--accent);margin:0 0 .5rem}
+  h1{font-size:2.2rem;line-height:1.08;margin:0 0 .5rem;font-weight:600}
+  .dek{color:var(--ink-2);font-style:italic;font-size:1.15rem;margin:0 0 2.2rem}
+  h2{font-size:1.3rem;margin:2.8rem 0 .6rem;font-weight:600}
+  p{margin:0 0 1.1rem}
+  .es{color:var(--accent);font-weight:600}
+  a{color:var(--accent)}
+  strong{font-weight:600}
+  .lead::first-letter{font-size:3.1rem;line-height:.8;float:left;padding:.05em .08em 0 0;
+    font-weight:600;color:var(--accent)}
+  blockquote{margin:1.6rem 0;padding:.2rem 0 .2rem 1.2rem;border-left:3px solid var(--rule);
+    color:var(--ink-2);font-style:italic}
+  .callout{background:#f4eede;border:1px solid var(--rule);border-radius:10px;padding:1.1rem 1.3rem;margin:1.6rem 0}
+  .callout .tag{font-family:ui-monospace,monospace;font-size:.68rem;letter-spacing:.15em;
+    text-transform:uppercase;color:var(--accent);display:block;margin-bottom:.4rem}
+
+  /* thermometer */
+  .thermo{display:flex;gap:1.4rem;align-items:stretch;margin:2rem 0 .6rem}
+  .bar{width:88px;flex:none;display:flex;flex-direction:column;border-radius:8px;overflow:hidden;
+    border:1px solid var(--rule)}
+  .seg{flex:1;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:600;
+    font-size:.8rem;letter-spacing:.04em;text-align:center;min-height:74px}
+  .seg.value{background:var(--value)}
+  .seg.price{background:var(--price)}
+  .seg.cost{background:var(--cost)}
+  .legend{display:flex;flex-direction:column;justify-content:space-between;font-size:.95rem;padding:.2rem 0}
+  .legend div{color:var(--ink-2)}
+  .legend b{color:var(--ink)}
+  .gap{color:var(--accent);font-style:italic}
+
+  /* quiz */
+  .quiz{margin:1rem 0;border:1px solid var(--rule);border-radius:12px;padding:1.3rem 1.4rem;background:#faf4e6}
+  .quiz h3{margin:0 0 .2rem;font-size:1.05rem}
+  .q{margin:1.4rem 0}
+  .q:first-of-type{margin-top:.6rem}
+  .q p{margin:0 0 .6rem;font-weight:600}
+  .opt{display:block;width:100%;text-align:left;font:inherit;font-size:.97rem;
+    background:#fff;border:1px solid var(--rule);border-radius:8px;padding:.6rem .8rem;margin:.4rem 0;
+    cursor:pointer;transition:border-color .15s,background .15s}
+  .opt:hover{border-color:var(--price)}
+  .opt.right{border-color:var(--good);background:#eef5ee}
+  .opt.wrong{border-color:var(--bad);background:#f7eaea}
+  .opt:disabled{cursor:default}
+  .fb{font-size:.9rem;margin:.5rem 0 0;min-height:1.2rem}
+  .fb.right{color:var(--good)}
+  .fb.wrong{color:var(--bad)}
+  .score{font-weight:600;margin-top:1rem;color:var(--ink-2)}
+
+  .win{border:2px solid var(--good);border-radius:12px;padding:1.1rem 1.3rem;margin:2.4rem 0;background:#eef5ee}
+  .win .tag{font-family:ui-monospace,monospace;font-size:.68rem;letter-spacing:.15em;
+    text-transform:uppercase;color:var(--good);display:block;margin-bottom:.4rem}
+  .src{border:1px dashed var(--accent);border-radius:12px;padding:1.1rem 1.3rem;margin:2rem 0}
+  .src .tag{font-family:ui-monospace,monospace;font-size:.68rem;letter-spacing:.15em;
+    text-transform:uppercase;color:var(--accent);display:block;margin-bottom:.4rem}
+  footer{margin-top:3.5rem;padding-top:1.2rem;border-top:1px solid var(--rule);font-size:.88rem;color:var(--ink-2)}
+  .nav{display:flex;justify-content:space-between;font-family:ui-monospace,monospace;font-size:.8rem;margin-top:1rem}
+  @media print{body{background:#fff}.quiz{break-inside:avoid}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="kicker">Founder School · Lesson 01 · Pricing</p>
+  <h1>Cost, Price, Value</h1>
+  <p class="dek">Three numbers engineers tend to collapse into one. Pulling them apart is the first real money skill — and it's where almost all your pricing power hides.</p>
+
+  <p class="lead">Here's the trap, and it's set specifically for people like you. You built EncoreShot. You know <em>exactly</em> what it costs to score one user's photos — the Gemini call, the storage, the bandwidth. Call it <strong>$0.15 a month</strong> for a hobbyist. So the instinct is clean and logical: take the cost, add a sensible margin, that's the price. Cost plus markup. Done.</p>
+
+  <p>That instinct will quietly cap your business. Because <strong>cost, price, and value are three different numbers</strong>, and the one you understand best — cost — is the one that matters <em>least</em> for setting your price.</p>
+
+  <h2>The pricing thermometer</h2>
+  <p>This is Kevin Hale's model from Y Combinator (your primary source below). Picture a thermometer with three marks stacked from bottom to top:</p>
+
+  <div class="thermo">
+    <div class="bar">
+      <div class="seg value">VALUE</div>
+      <div class="seg price">PRICE</div>
+      <div class="seg cost">COST</div>
+    </div>
+    <div class="legend">
+      <div><b>Value</b> — what the result is <em>worth</em> to the customer.<br><span class="gap">↕ the gap here is their delight — the reason to buy & stay.</span></div>
+      <div><b>Price</b> — the number you choose to charge.<br><span class="gap">↕ the gap here is your margin — fuel to grow.</span></div>
+      <div><b>Cost</b> — what it costs <em>you</em> to deliver one more.</div>
+    </div>
+  </div>
+
+  <p>Two gaps, two jobs. <strong>Price minus cost</strong> is your <a href="../reference/glossary.html#margin">margin</a> — the money that pays for everything else you'll ever do. <strong>Value minus price</strong> is the customer's <em>delight</em> — the surplus they pocket, which is exactly why they buy and why they don't churn. Good pricing is the deliberate act of sliding "price" up the bar until both gaps are healthy.</p>
+
+  <p>Notice what cost does here: it sets the <strong>floor</strong>. Price can't sit below it for long or you lose money on every sale. But the floor doesn't tell you where the ceiling is — and the ceiling is set by <a href="../reference/glossary.html#value">value</a>, which has nothing to do with your compute bill.</p>
+
+  <div class="callout">
+    <span class="tag">EncoreShot, concretely</span>
+    Your cost floor is ~$0.15/user/mo. But the <em>value</em>? It's the one Story that finally does the show justice, posted inside the same-night window before the moment's gone — and the two hours of squinting-at-a-camera-roll you just handed back. Nobody at a Bad Bunny show is doing cost-plus math. They're weighing "$5" against "the night I'll never shoot again." <strong>That's</strong> the number your price negotiates with — not the $0.15.
+  </div>
+
+  <h2>Why cost-plus is the engineer's tax</h2>
+  <p>When you price off cost, you let your own efficiency punish you. Make the AI 10× cheaper and cost-plus says <em>lower the price</em> — even though the value to the fan didn't drop a cent. You'd be donating your engineering wins to your customers instead of keeping them as margin. <a href="../reference/glossary.html#value-based">Value-based pricing</a> — Hale's recommendation — anchors instead on what the outcome is worth. His rough target: aim for perceived value around <strong>10× the price</strong>, so the buy feels like an obvious yes.</p>
+
+  <blockquote>"The most common pricing mistakes: underestimating costs, not understanding your value, charging the wrong customers, and undercharging." — Kevin Hale, YC</blockquote>
+
+  <p>And his most quietly radical rule of thumb: most startups charge too little, so <strong>keep raising price until you start losing about 20% of customers.</strong> Until that happens, you haven't found the edge of what people will pay — you've just been leaving money (and the signal it carries) on the table.</p>
+
+  <h2>Check yourself</h2>
+  <p>Quick retrieval — no peeking. Pick an answer and you'll get instant feedback. (Recalling beats re-reading for making this stick.)</p>
+
+  <div class="quiz" id="quiz">
+    <h3>Three questions</h3>
+
+    <div class="q" data-correct="0">
+      <p>1. Cost-plus pricing mainly fails because it…</p>
+      <button class="opt">ignores what customers value</button>
+      <button class="opt">exceeds what customers expect</button>
+      <button class="opt">matches what customers budget</button>
+      <p class="fb"></p>
+    </div>
+
+    <div class="q" data-correct="0">
+      <p>2. On the thermometer, the customer's reason to buy lives in the gap between…</p>
+      <button class="opt">value and the price</button>
+      <button class="opt">price and the cost</button>
+      <button class="opt">cost and the floor</button>
+      <p class="fb"></p>
+    </div>
+
+    <div class="q" data-correct="2">
+      <p>3. Hale says keep raising price until you…</p>
+      <button class="opt">match almost every rival</button>
+      <button class="opt">reach almost double cost</button>
+      <button class="opt">lose about twenty percent</button>
+      <p class="fb"></p>
+    </div>
+
+    <p class="score" id="score"></p>
+  </div>
+
+  <div class="win">
+    <span class="tag">Your one win from this lesson</span>
+    You can now say, out loud and correctly: <em>"My AI cost sets EncoreShot's price <strong>floor</strong>. My customer's value sets the <strong>ceiling</strong>. My price is a choice I make in between — and I should push it higher than feels comfortable."</em> That single sentence is the foundation everything else in pricing is built on.
+  </div>
+
+  <div class="src">
+    <span class="tag">Primary source — watch this next (~50 min)</span>
+    <strong><a href="https://www.youtube.com/watch?v=jwXlo9gy_k4">Startup Pricing 101 — Kevin Hale, Y Combinator</a></strong><br>
+    The canonical talk this lesson is built on. Watch for: the thermometer, the four mistakes, and the "raise until you lose 20%" rule. Text companion: <a href="https://www.ycombinator.com/library/6h-startup-pricing-101">YC Library writeup</a>.
+  </div>
+
+  <footer>
+    <strong>Questions are the point.</strong> I'm your teacher — ask me anything that's fuzzy: "how do I actually estimate value?", "what's a fair starting price for the hobbyist tier?", "isn't $5 too cheap to bother?" Next lesson digs into <em>Lesson 02 — AI unit economics: the real floor under EncoreShot</em>, where we make that $0.15 number precise and watch how video duration moves it.
+    <div class="nav">
+      <span>← &nbsp; <a href="../reference/glossary.html">Glossary</a></span>
+      <span><a href="../reference/glossary.html#thermometer">Pricing thermometer →</a></span>
+    </div>
+  </footer>
+</div>
+
+<script>
+  document.querySelectorAll('#quiz .q').forEach(function(q){
+    var correct = +q.dataset.correct;
+    var opts = q.querySelectorAll('.opt');
+    var fb = q.querySelector('.fb');
+    var msgRight = "Right.";
+    var explain = [
+      " Cost-plus never looks at value — so it caps your price far below what people would gladly pay.",
+      " Value − price is the customer's surplus: the delight that makes them buy and stay.",
+      " Most founders undercharge; ~20% attrition is the signal you've finally found the ceiling."
+    ];
+    var idx = [].indexOf.call(document.querySelectorAll('#quiz .q'), q);
+    opts.forEach(function(o,i){
+      o.addEventListener('click', function(){
+        if(q.dataset.done) return;
+        q.dataset.done = "1";
+        opts.forEach(function(b){b.disabled=true});
+        if(i===correct){ o.classList.add('right'); fb.className='fb right'; fb.textContent = msgRight + explain[idx]; }
+        else { o.classList.add('wrong'); opts[correct].classList.add('right'); fb.className='fb wrong'; fb.textContent = "Not quite —" + explain[idx]; }
+        tally();
+      });
+    });
+  });
+  function tally(){
+    var done = document.querySelectorAll('#quiz .q[data-done]').length;
+    var total = document.querySelectorAll('#quiz .q').length;
+    if(done<total){ document.getElementById('score').textContent = done+" / "+total+" answered…"; return; }
+    var right = document.querySelectorAll('#quiz .opt.right').length - document.querySelectorAll('#quiz .opt.wrong').length;
+    // count right answers chosen
+    var got=0;
+    document.querySelectorAll('#quiz .q').forEach(function(q){
+      var chosen=q.querySelector('.opt.right.wrong'); // never both; count where user's pick was right
+    });
+    got = total - document.querySelectorAll('#quiz .opt.wrong').length;
+    document.getElementById('score').textContent = "You got "+got+" / "+total+". "+(got===total?"Locked in. 🎯":"Re-read the section above the answer you missed, then move on.");
+  }
+</script>
+</body>
+</html>
