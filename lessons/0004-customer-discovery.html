@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 04 — Customer Discovery</title>
+<style>
+  :root{--paper:#fdfaf3;--ink:#201c17;--ink-2:#5c544a;--rule:#e2dac9;--accent:#9a3b2e;--good:#3f6f52;--bad:#a33}
+  *{box-sizing:border-box}html{font-size:18px}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:42rem;margin:0 auto;padding:3.5rem 1.5rem 6rem}
+  .kicker{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 .5rem}
+  h1{font-size:2.2rem;line-height:1.08;margin:0 0 .5rem;font-weight:600}
+  .dek{color:var(--ink-2);font-style:italic;font-size:1.15rem;margin:0 0 2.2rem}
+  h2{font-size:1.3rem;margin:2.8rem 0 .6rem;font-weight:600}
+  p{margin:0 0 1.1rem}.es{color:var(--accent);font-weight:600}a{color:var(--accent)}strong{font-weight:600}
+  .lead::first-letter{font-size:3.1rem;line-height:.8;float:left;padding:.05em .08em 0 0;font-weight:600;color:var(--accent)}
+  blockquote{margin:1.6rem 0;padding:.2rem 0 .2rem 1.2rem;border-left:3px solid var(--rule);color:var(--ink-2);font-style:italic}
+  .callout{background:#f4eede;border:1px solid var(--rule);border-radius:10px;padding:1.1rem 1.3rem;margin:1.6rem 0}
+  .callout .tag{font-family:ui-monospace,monospace;font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:.4rem}
+  .rules{list-style:none;padding:0;margin:1.4rem 0;counter-reset:r}
+  .rules li{position:relative;padding:.7rem 0 .7rem 2.6rem;border-bottom:1px solid var(--rule)}
+  .rules li::before{counter-increment:r;content:counter(r);position:absolute;left:0;top:.6rem;width:1.7rem;height:1.7rem;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-family:ui-monospace,monospace;font-size:.9rem}
+  .ba{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin:1.4rem 0}
+  .ba>div{border-radius:10px;padding:.8rem .9rem;font-size:.92rem}
+  .bad-box{background:#f7eaea;border:1px solid #e3c3c3}
+  .good-box{background:#eef5ee;border:1px solid #c3ddc8}
+  .ba h4{margin:0 0 .4rem;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase}
+  .bad-box h4{color:var(--bad)}.good-box h4{color:var(--good)}
+  .ba p{margin:.3rem 0;color:var(--ink)}
+  .quiz{margin:1rem 0;border:1px solid var(--rule);border-radius:12px;padding:1.3rem 1.4rem;background:#faf4e6}
+  .quiz h3{margin:0 0 .2rem;font-size:1.05rem}
+  .q{margin:1.4rem 0}.q:first-of-type{margin-top:.6rem}.q p{margin:0 0 .6rem;font-weight:600}
+  .opt{display:block;width:100%;text-align:left;font:inherit;font-size:.97rem;background:#fff;border:1px solid var(--rule);border-radius:8px;padding:.6rem .8rem;margin:.4rem 0;cursor:pointer;transition:border-color .15s,background .15s}
+  .opt:hover{border-color:#5c6b8a}.opt.right{border-color:var(--good);background:#eef5ee}.opt.wrong{border-color:var(--bad);background:#f7eaea}.opt:disabled{cursor:default}
+  .fb{font-size:.9rem;margin:.5rem 0 0;min-height:1.2rem}.fb.right{color:var(--good)}.fb.wrong{color:var(--bad)}
+  .score{font-weight:600;margin-top:1rem;color:var(--ink-2)}
+  .win{border:2px solid var(--good);border-radius:12px;padding:1.1rem 1.3rem;margin:2.4rem 0;background:#eef5ee}
+  .win .tag,.src .tag{font-family:ui-monospace,monospace;font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;display:block;margin-bottom:.4rem}.win .tag{color:var(--good)}
+  .src{border:1px dashed var(--accent);border-radius:12px;padding:1.1rem 1.3rem;margin:2rem 0}.src .tag{color:var(--accent)}
+  footer{margin-top:3.5rem;padding-top:1.2rem;border-top:1px solid var(--rule);font-size:.88rem;color:var(--ink-2)}
+  .nav{display:flex;justify-content:space-between;font-family:ui-monospace,monospace;font-size:.8rem;margin-top:1rem}
+  @media(max-width:540px){.ba{grid-template-columns:1fr}}
+  @media print{body{background:#fff}.quiz{break-inside:avoid}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="kicker">Founder School · Lesson 04 · Customers</p>
+  <h1>Talking to users without fooling yourself</h1>
+  <p class="dek">Everything so far — value, floor, tiers — rests on one input: knowing what your users actually need and would pay for. The catch is that people lie to you, kindly, by default.</p>
+
+  <p class="lead">When you show a fan EncoreShot at a concert and they say "oh that's cool, I'd totally use that," your brain files it as validation. It isn't. It's politeness. The single most expensive mistake an engineer-founder makes is building confidently on compliments. The fix is a discipline called <strong>The Mom Test</strong> — named because its questions are so well-formed that <em>even your mom</em> couldn't lie to you about your idea (<a href="https://www.momtestbook.com/">Rob Fitzpatrick</a>; YC recommends it to every founder).</p>
+
+  <h2>The three rules</h2>
+  <ul class="rules">
+    <li><strong>Talk about their life, not your idea.</strong> The moment you describe your product, they start managing your feelings. Keep your idea in your pocket and ask about <em>them</em>.</li>
+    <li><strong>Ask about specifics in the past, not opinions about the future.</strong> "Would you use X?" invites a fantasy. "Walk me through the last show you shot" gets you facts.</li>
+    <li><strong>Talk less, listen more.</strong> You're there to learn, not to pitch. If you're talking, you're not learning.</li>
+  </ul>
+
+  <h2>The tell: facts vs. fluff</h2>
+  <p>Sort everything you hear into two bins. <strong>Facts</strong> = what they actually did, what it cost them, what they've already tried, what they currently pay for. <strong>Fluff</strong> = compliments, generic claims ("I always…"), and hypotheticals about the future. Fluff feels great and means nothing. Only facts should move your roadmap or your price.</p>
+
+  <div class="ba">
+    <div class="bad-box">
+      <h4>Fluff (don't trust)</h4>
+      <p>"Do you like this app?"</p>
+      <p>"Would you pay $5 for it?"</p>
+      <p>"Would you use AI to cull?"</p>
+    </div>
+    <div class="good-box">
+      <h4>Facts (trust these)</h4>
+      <p>"Walk me through the last show you shot — then what?"</p>
+      <p>"How long did editing those clips take you?"</p>
+      <p>"What do you use today, and what do you pay for it?"</p>
+    </div>
+  </div>
+
+  <div class="callout">
+    <span class="tag">EncoreShot — your built-in advantage</span>
+    Your GTM already <em>is</em> customer discovery. The concert-seeding script — "Did you get any good shots?", riff on the show, empathise with the pain — is textbook Mom Test: it opens on <em>their</em> life, not your pitch. Lean into it. At every show, before you ever mention EncoreShot, learn three facts: how many clips they shot, whether they posted that night, and what stopped them. That's free, high-signal research your competitors can't buy — and it's the raw data behind every pricing and feature call you'll make.
+  </div>
+
+  <h2>The commitment test</h2>
+  <p>Talk is cheap; commitment isn't. The strongest signal isn't a "yes," it's a person giving up something they value — <strong>time, reputation, or money</strong>. A redeemed <a href="../reference/glossary.html#voucher">voucher</a> that turns into a first export is worth more than a hundred "love it"s. That's why your funnel measures <em>landed → signed up → first session → first export</em>: each step is a real commitment, not a compliment.</p>
+
+  <blockquote>"Opinions are worthless. … Anything involving the future is an over-optimistic lie." — Rob Fitzpatrick, The Mom Test</blockquote>
+
+  <h2>Check yourself</h2>
+  <div class="quiz">
+    <h3>Three questions</h3>
+    <div class="q" data-correct="0" data-exp="Rule 1: talk about their life, not your idea — the moment you pitch, they start being polite.">
+      <p>1. The Mom Test says talk about…</p>
+      <button class="opt">their life, not yours</button>
+      <button class="opt">your idea in detail</button>
+      <button class="opt">the future they imagine</button>
+      <p class="fb"></p>
+    </div>
+    <div class="q" data-correct="0" data-exp="Asking about a specific past behaviour can't be answered with a polite hypothetical.">
+      <p>2. Which question passes the Mom Test?</p>
+      <button class="opt">"How do you cull today?"</button>
+      <button class="opt">"Would you pay for this?"</button>
+      <button class="opt">"Do you like my app?"</button>
+      <p class="fb"></p>
+    </div>
+    <div class="q" data-correct="0" data-exp="Compliments and future-tense 'I'd buy it' are fluff — only past facts and real commitment count.">
+      <p>3. Compliments and "I'd totally buy it" are…</p>
+      <button class="opt">fluff, not real data</button>
+      <button class="opt">proof of strong demand</button>
+      <button class="opt">signed purchase commitments</button>
+      <p class="fb"></p>
+    </div>
+    <p class="score" id="score"></p>
+  </div>
+
+  <div class="win">
+    <span class="tag">Your one win from this lesson</span>
+    Next concert, you'll run three Mom-Test questions before pitching anything — and you'll sort every answer into facts vs. fluff, trusting only the facts. You've turned "people seemed to like it" (worthless) into a repeatable way to extract truth from the exact humans you're building for.
+  </div>
+
+  <div class="src">
+    <span class="tag">Primary source — read/watch next</span>
+    <strong><a href="https://www.youtube.com/watch?v=MT4Ig2uqjTc">"How to Talk to Users" — Eric Migicovsky, Y Combinator</a></strong> (~25 min) — YC's distillation of the Mom Test. Then the book itself: <a href="https://www.momtestbook.com/"><em>The Mom Test</em> by Rob Fitzpatrick</a> (short, ~130pp, the best $ you'll spend this month).
+  </div>
+
+  <footer>
+    <strong>Ask me anything.</strong> Try: "give me 5 Mom-Test questions for a concert encounter", "how do I ask about price without leading them?", "how many interviews before I trust a pattern?" Next: <em>Lesson 05 — Distribution &amp; getting your first users</em> (the Bullseye framework, your zero-CAC concert flywheel, and referrals).
+    <div class="nav"><span>← <a href="0003-pricing-models-packaging.html">Lesson 03</a></span><span><a href="0005-distribution-gtm.html">Lesson 05 →</a></span></div>
+  </footer>
+</div>
+<script>
+document.querySelectorAll('.q').forEach(function(q){var correct=+q.dataset.correct,opts=q.querySelectorAll('.opt'),fb=q.querySelector('.fb'),exp=q.dataset.exp;
+  opts.forEach(function(o,i){o.addEventListener('click',function(){if(q.dataset.done)return;q.dataset.done="1";opts.forEach(function(b){b.disabled=true});
+    if(i===correct){o.classList.add('right');fb.className='fb right';fb.textContent="Right. "+exp;}else{o.classList.add('wrong');opts[correct].classList.add('right');fb.className='fb wrong';fb.textContent="Not quite — "+exp;}score();});});});
+function score(){var qs=document.querySelectorAll('.q'),done=document.querySelectorAll('.q[data-done]').length,el=document.getElementById('score');if(!el)return;
+  if(done<qs.length){el.textContent=done+" / "+qs.length+" answered…";return;}var got=qs.length-document.querySelectorAll('.opt.wrong').length;
+  el.textContent="You got "+got+" / "+qs.length+". "+(got===qs.length?"Locked in. 🎯":"Re-read the bit above any you missed.");}
+</script>
+</body>
+</html>
