@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 05 — Distribution &amp; First Users</title>
+<style>
+  :root{--paper:#fdfaf3;--ink:#201c17;--ink-2:#5c544a;--rule:#e2dac9;--accent:#9a3b2e;--good:#3f6f52;--bad:#a33}
+  *{box-sizing:border-box}html{font-size:18px}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:42rem;margin:0 auto;padding:3.5rem 1.5rem 6rem}
+  .kicker{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 .5rem}
+  h1{font-size:2.2rem;line-height:1.08;margin:0 0 .5rem;font-weight:600}
+  .dek{color:var(--ink-2);font-style:italic;font-size:1.15rem;margin:0 0 2.2rem}
+  h2{font-size:1.3rem;margin:2.8rem 0 .6rem;font-weight:600}
+  p{margin:0 0 1.1rem}.es{color:var(--accent);font-weight:600}a{color:var(--accent)}strong{font-weight:600}
+  .lead::first-letter{font-size:3.1rem;line-height:.8;float:left;padding:.05em .08em 0 0;font-weight:600;color:var(--accent)}
+  blockquote{margin:1.6rem 0;padding:.2rem 0 .2rem 1.2rem;border-left:3px solid var(--rule);color:var(--ink-2);font-style:italic}
+  .callout{background:#f4eede;border:1px solid var(--rule);border-radius:10px;padding:1.1rem 1.3rem;margin:1.6rem 0}
+  .callout .tag{font-family:ui-monospace,monospace;font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:.4rem}
+  .bull{display:flex;flex-direction:column;align-items:center;gap:0;margin:1.6rem 0;font-size:.86rem}
+  .ring{border:2px solid var(--rule);border-radius:999px;padding:.6rem 1rem;text-align:center;width:100%;max-width:430px}
+  .ring.outer{background:#fbf6ea}.ring.mid{background:#f3ede0;max-width:340px;margin-top:-.2rem}.ring.core{background:#eef5ee;border-color:var(--good);max-width:250px;margin-top:-.2rem}
+  .ring b{display:block;font-family:ui-monospace,monospace;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2)}
+  ol.steps{padding-left:1.3rem}ol.steps li{margin:.4rem 0}
+  table{width:100%;border-collapse:collapse;margin:1.4rem 0;font-size:.9rem}
+  th,td{text-align:left;padding:.5rem .6rem;border-bottom:1px solid var(--rule);vertical-align:top}
+  th{font-size:.74rem;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-2)}
+  .quiz{margin:1rem 0;border:1px solid var(--rule);border-radius:12px;padding:1.3rem 1.4rem;background:#faf4e6}
+  .quiz h3{margin:0 0 .2rem;font-size:1.05rem}
+  .q{margin:1.4rem 0}.q:first-of-type{margin-top:.6rem}.q p{margin:0 0 .6rem;font-weight:600}
+  .opt{display:block;width:100%;text-align:left;font:inherit;font-size:.97rem;background:#fff;border:1px solid var(--rule);border-radius:8px;padding:.6rem .8rem;margin:.4rem 0;cursor:pointer;transition:border-color .15s,background .15s}
+  .opt:hover{border-color:#5c6b8a}.opt.right{border-color:var(--good);background:#eef5ee}.opt.wrong{border-color:var(--bad);background:#f7eaea}.opt:disabled{cursor:default}
+  .fb{font-size:.9rem;margin:.5rem 0 0;min-height:1.2rem}.fb.right{color:var(--good)}.fb.wrong{color:var(--bad)}
+  .score{font-weight:600;margin-top:1rem;color:var(--ink-2)}
+  .win{border:2px solid var(--good);border-radius:12px;padding:1.1rem 1.3rem;margin:2.4rem 0;background:#eef5ee}
+  .win .tag,.src .tag{font-family:ui-monospace,monospace;font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;display:block;margin-bottom:.4rem}.win .tag{color:var(--good)}
+  .src{border:1px dashed var(--accent);border-radius:12px;padding:1.1rem 1.3rem;margin:2rem 0}.src .tag{color:var(--accent)}
+  footer{margin-top:3.5rem;padding-top:1.2rem;border-top:1px solid var(--rule);font-size:.88rem;color:var(--ink-2)}
+  .nav{display:flex;justify-content:space-between;font-family:ui-monospace,monospace;font-size:.8rem;margin-top:1rem}
+  @media print{body{background:#fff}.quiz{break-inside:avoid}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="kicker">Founder School · Lesson 05 · Distribution</p>
+  <h1>Getting your first users</h1>
+  <p class="dek">A great product nobody can find is a hobby. This lesson is about the other half of the business — how people discover you — and why it's the half engineers chronically neglect.</p>
+
+  <p class="lead">Here's the uncomfortable stat that should reframe your whole effort: <strong>poor distribution, not a bad product, is the #1 cause of startup failure</strong> (<a href="https://medium.com/@yegg/the-bullseye-framework-for-getting-traction-ef49d05bfd7e">Gabriel Weinberg, <em>Traction</em></a>). Founders romanticise the build and assume good products spread on their own. They don't. You should spend roughly as much energy on <em>getting users</em> as on <em>building for them</em> — and the good news is you've already designed a great channel.</p>
+
+  <h2>The Bullseye framework</h2>
+  <p>Weinberg catalogs <strong>19 traction channels</strong> (SEO, content, ads, viral/referral, events, PR, community, sales, partnerships…). The trap is dabbling in all of them. Bullseye says: at any given stage, <strong>one channel</strong> drives the bulk of your growth — your job is to find it cheaply, then pour in.</p>
+
+  <div class="bull">
+    <div class="ring outer"><b>Outer ring — brainstorm</b>all 19 channels, no filtering</div>
+    <div class="ring mid"><b>Middle ring — test</b>3–4 cheap experiments</div>
+    <div class="ring core"><b>Bullseye — focus</b>the one channel that's working</div>
+  </div>
+  <ol class="steps">
+    <li><strong>Brainstorm</strong> a plausible version of all 19 — even the silly ones.</li>
+    <li><strong>Rank</strong> into three columns: promising / maybe / long-shot.</li>
+    <li><strong>Test</strong> the top 3–4 with cheap, time-boxed experiments (the question is "can this work?", not "scale it").</li>
+    <li><strong>Focus</strong> everything on the one that shows traction; revisit when it saturates.</li>
+  </ol>
+
+  <div class="callout">
+    <span class="tag">EncoreShot — you already found your bullseye</span>
+    Your GTM playbook isn't dabbling — it's a correctly-chosen core channel: <strong>in-person concert seeding</strong> (offline events + community), zero-CAC by design. That's the right call for 0–25 users. The Bullseye discipline now is to <em>resist</em> spreading thin (don't start running ads at 10 users) — and to treat your other listed channels (fan-group seeding, micro-creators, build-in-public) as the <em>middle-ring tests</em> you graduate one at a time once seeding saturates. Cohort data per voucher is exactly how you'll know which test earned promotion.
+  </div>
+
+  <h2>"Do things that don't scale" — on purpose</h2>
+  <p>At your stage, the un-scalable <em>is</em> the strategy. Handing a QR sticker to a fan at 2am doesn't scale — and that's fine, because it builds something ads can't: a real relationship and a true story (<a href="https://www.paulgraham.com/ds.html">Paul Graham, "Do Things That Don't Scale"</a>). The first 25 users should feel <em>recruited by a person</em>, not acquired by a funnel. Your Founding Crew chat is this principle in product form.</p>
+
+  <h2>Referrals: turn users into the channel</h2>
+  <p>Once people get value, the cheapest growth is letting them bring the next person. Referred users convert 3–5× more often and stay longer (<a href="https://refgrow.com/blog/referral-program-best-practices">Refgrow, 2026</a>). What the data says works:</p>
+  <table>
+    <thead><tr><th>Principle</th><th>Why</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Two-sided reward</strong> (giver <em>and</em> receiver)</td><td>+85% participation vs one-sided</td></tr>
+      <tr><td><strong>Trigger after the "aha moment"</strong></td><td>+60% participation — ask right after a first export, never before</td></tr>
+      <tr><td><strong>Credit / perks beat cash</strong></td><td>~18% better in software; cheaper for you, on-brand</td></tr>
+      <tr><td><strong>Kill the friction</strong></td><td>every extra click sheds referrers</td></tr>
+    </tbody>
+  </table>
+  <p><strong>Referral vs affiliate</strong> — worth keeping straight: a <em>referral</em> is a happy <em>user</em> sharing for a perk (your voucher flywheel — extend it: "send a voucher, you both get X"). An <em>affiliate</em> is an outsider (a creator/blogger) paid commission to promote you — that's a later, Pro-phase lever, not a 0–25-user move.</p>
+
+  <blockquote>"The number one reason we pass on entrepreneurs is they're focused on the product instead of distribution." — common VC refrain echoing <em>Traction</em>'s thesis.</blockquote>
+
+  <h2>Check yourself</h2>
+  <div class="quiz">
+    <h3>Three questions</h3>
+    <div class="q" data-correct="0" data-exp="Weinberg's core claim: distribution, not product quality, is the usual killer.">
+      <p>1. The #1 cause of startup failure is usually…</p>
+      <button class="opt">poor distribution, not product</button>
+      <button class="opt">weak code, not market</button>
+      <button class="opt">high price, not value</button>
+      <p class="fb"></p>
+    </div>
+    <div class="q" data-correct="0" data-exp="Bullseye: find and pour into the single channel that works, not all of them at once.">
+      <p>2. Bullseye says at any time focus on…</p>
+      <button class="opt">one core working channel</button>
+      <button class="opt">every channel at once</button>
+      <button class="opt">only the cheapest channel</button>
+      <p class="fb"></p>
+    </div>
+    <div class="q" data-correct="0" data-exp="Two-sided rewards (giver + receiver) lift participation ~85% over one-sided.">
+      <p>3. Two-sided referral rewards work because they…</p>
+      <button class="opt">reward giver and receiver</button>
+      <button class="opt">punish the slow adopters</button>
+      <button class="opt">replace the whole funnel</button>
+      <p class="fb"></p>
+    </div>
+    <p class="score" id="score"></p>
+  </div>
+
+  <div class="win">
+    <span class="tag">Your one win from this lesson</span>
+    You can now see EncoreShot's GTM as a <em>deliberate Bullseye bet</em> — concert seeding as the core channel, everything else parked as middle-ring tests — and you know the four rules that make your voucher-into-referral loop actually convert. Distribution is no longer the scary, vague half of the business; it's a channel you chose on purpose and can measure.
+  </div>
+
+  <div class="src">
+    <span class="tag">Primary source — read next (~15 min, then the book)</span>
+    <strong><a href="https://medium.com/@yegg/the-bullseye-framework-for-getting-traction-ef49d05bfd7e">"The Bullseye Framework for Getting Traction" — Gabriel Weinberg</a></strong><br>
+    The free essay version of <em>Traction</em>'s core. Then pair with <a href="https://www.paulgraham.com/ds.html">Paul Graham, "Do Things That Don't Scale"</a> — the two together are the whole early-stage distribution playbook.
+  </div>
+
+  <footer>
+    <strong>Ask me anything.</strong> Good ones now: "design my voucher→referral reward", "which middle-ring channel should I test after seeding?", "how do I run build-in-public without it feeling like ads?" — and remember <strong>advisor mode</strong>: I can assess EncoreShot's actual readiness (MVP / charge / expand) whenever you want. That's a natural next session now that you've got the fundamentals.
+    <div class="nav"><span>← <a href="0004-customer-discovery.html">Lesson 04</a></span><span><a href="../reference/glossary.html">Glossary →</a></span></div>
+  </footer>
+</div>
+<script>
+document.querySelectorAll('.q').forEach(function(q){var correct=+q.dataset.correct,opts=q.querySelectorAll('.opt'),fb=q.querySelector('.fb'),exp=q.dataset.exp;
+  opts.forEach(function(o,i){o.addEventListener('click',function(){if(q.dataset.done)return;q.dataset.done="1";opts.forEach(function(b){b.disabled=true});
+    if(i===correct){o.classList.add('right');fb.className='fb right';fb.textContent="Right. "+exp;}else{o.classList.add('wrong');opts[correct].classList.add('right');fb.className='fb wrong';fb.textContent="Not quite — "+exp;}score();});});});
+function score(){var qs=document.querySelectorAll('.q'),done=document.querySelectorAll('.q[data-done]').length,el=document.getElementById('score');if(!el)return;
+  if(done<qs.length){el.textContent=done+" / "+qs.length+" answered…";return;}var got=qs.length-document.querySelectorAll('.opt.wrong').length;
+  el.textContent="You got "+got+" / "+qs.length+". "+(got===qs.length?"Locked in. 🎯":"Re-read the bit above any you missed.");}
+</script>
+</body>
+</html>
