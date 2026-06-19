@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 08 — Retention &amp; Churn</title>
+<style>
+  :root{--paper:#fdfaf3;--ink:#201c17;--ink-2:#5c544a;--rule:#e2dac9;--accent:#9a3b2e;--good:#3f6f52;--bad:#a33}
+  *{box-sizing:border-box}html{font-size:18px}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:42rem;margin:0 auto;padding:3.5rem 1.5rem 6rem}
+  .kicker{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 .5rem}
+  h1{font-size:2.2rem;line-height:1.08;margin:0 0 .5rem;font-weight:600}
+  .dek{color:var(--ink-2);font-style:italic;font-size:1.15rem;margin:0 0 2.2rem}
+  h2{font-size:1.3rem;margin:2.8rem 0 .6rem;font-weight:600}
+  p{margin:0 0 1.1rem}.es{color:var(--accent);font-weight:600}a{color:var(--accent)}strong{font-weight:600}
+  .lead::first-letter{font-size:3.1rem;line-height:.8;float:left;padding:.05em .08em 0 0;font-weight:600;color:var(--accent)}
+  blockquote{margin:1.6rem 0;padding:.2rem 0 .2rem 1.2rem;border-left:3px solid var(--rule);color:var(--ink-2);font-style:italic}
+  .callout{background:#f4eede;border:1px solid var(--rule);border-radius:10px;padding:1.1rem 1.3rem;margin:1.6rem 0}
+  .callout .tag{font-family:ui-monospace,monospace;font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:.4rem}
+  .curves{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem;margin:1.4rem 0}
+  .curve{border:1px solid var(--rule);border-radius:10px;padding:.8rem;background:#fff;text-align:center}
+  .curve svg{width:100%;height:54px}
+  .curve b{display:block;font-size:.85rem;margin-top:.3rem}
+  .curve.bad b{color:var(--bad)}.curve.ok b{color:var(--ink)}.curve.good b{color:var(--good)}
+  .curve span{font-size:.76rem;color:var(--ink-2)}
+  .quiz{margin:1rem 0;border:1px solid var(--rule);border-radius:12px;padding:1.3rem 1.4rem;background:#faf4e6}
+  .quiz h3{margin:0 0 .2rem;font-size:1.05rem}
+  .q{margin:1.4rem 0}.q:first-of-type{margin-top:.6rem}.q p{margin:0 0 .6rem;font-weight:600}
+  .opt{display:block;width:100%;text-align:left;font:inherit;font-size:.97rem;background:#fff;border:1px solid var(--rule);border-radius:8px;padding:.6rem .8rem;margin:.4rem 0;cursor:pointer;transition:border-color .15s,background .15s}
+  .opt:hover{border-color:#5c6b8a}.opt.right{border-color:var(--good);background:#eef5ee}.opt.wrong{border-color:var(--bad);background:#f7eaea}.opt:disabled{cursor:default}
+  .fb{font-size:.9rem;margin:.5rem 0 0;min-height:1.2rem}.fb.right{color:var(--good)}.fb.wrong{color:var(--bad)}
+  .score{font-weight:600;margin-top:1rem;color:var(--ink-2)}
+  .win{border:2px solid var(--good);border-radius:12px;padding:1.1rem 1.3rem;margin:2.4rem 0;background:#eef5ee}
+  .win .tag,.src .tag{font-family:ui-monospace,monospace;font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;display:block;margin-bottom:.4rem}.win .tag{color:var(--good)}
+  .src{border:1px dashed var(--accent);border-radius:12px;padding:1.1rem 1.3rem;margin:2rem 0}.src .tag{color:var(--accent)}
+  footer{margin-top:3.5rem;padding-top:1.2rem;border-top:1px solid var(--rule);font-size:.88rem;color:var(--ink-2)}
+  .nav{display:flex;justify-content:space-between;font-family:ui-monospace,monospace;font-size:.8rem;margin-top:1rem}
+  @media(max-width:540px){.curves{grid-template-columns:1fr}}
+  @media print{body{background:#fff}.quiz{break-inside:avoid}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="kicker">Founder School · Lesson 08 · Retention</p>
+  <h1>The silent engine: retention &amp; churn</h1>
+  <p class="dek">Acquisition is loud and exciting. Retention is quiet and boring. One of them decides whether you have a business — and it's the boring one.</p>
+
+  <p class="lead">Picture a bucket with holes. <a href="../reference/glossary.html#churn">Churn</a> is the water leaking out; acquisition is you pouring more in. Every founder instinct says "pour faster" — buy ads, hit more shows. But if the holes are big enough, no amount of pouring fills the bucket; you just spend more to stay flat. <strong>Retention is plugging the holes</strong>, and it's the single best signal that you've built something real.</p>
+
+  <h2>Why it's the silent killer</h2>
+  <p>Retention is sneaky because it's invisible in the short term — it takes months, sometimes years, to see its effect on growth (<a href="https://www.reforge.com/blog/retention-engagement-growth-silent-killer">Reforge / Casey Winters</a>). Two products can look identical at launch; the one with better retention quietly compounds while the other runs on a treadmill. It also silently powers every <em>other</em> metric: retained users refer more, pay longer, and cost nothing to re-acquire. Fix retention and acquisition gets easier; ignore it and acquisition gets more expensive forever.</p>
+
+  <h2>Reading the retention curve</h2>
+  <p>Take a cohort (say, everyone from one concert), and plot the % still active over time. The <em>shape</em> tells you everything:</p>
+  <div class="curves">
+    <div class="curve bad">
+      <svg viewBox="0 0 100 50"><path d="M2,8 C25,40 60,48 98,49" fill="none" stroke="#a33" stroke-width="3"/></svg>
+      <b>Declining</b><span>drops to zero — no fit</span>
+    </div>
+    <div class="curve ok">
+      <svg viewBox="0 0 100 50"><path d="M2,8 C25,30 45,33 98,33" fill="none" stroke="#5c544a" stroke-width="3"/></svg>
+      <b>Flattening</b><span>a core keeps returning — fit</span>
+    </div>
+    <div class="curve good">
+      <svg viewBox="0 0 100 50"><path d="M2,14 C30,34 55,30 98,12" fill="none" stroke="#3f6f52" stroke-width="3"/></svg>
+      <b>Smiling</b><span>they come back more — celebrate</span>
+    </div>
+  </div>
+  <p>A curve that hits zero means people tried it and left — no fit. A curve that <strong>flattens</strong> on a plateau means a real core found lasting value — that flattening is the truest read of product-market fit (Lesson 06). A curve that <em>smiles</em> back upward is rare and wonderful.</p>
+
+  <div class="callout">
+    <span class="tag">EncoreShot — measure retention at the right clock</span>
+    Here's the subtlety for your product: a concert hobbyist isn't a daily app, and judging them on daily or weekly return would scream "churn" falsely. Their natural rhythm is <strong>per show</strong> — the right retention question is "did they come back for their <em>next</em> concert?", not "did they open the app Tuesday?" Measure retention at the customer's natural frequency or you'll misread a perfectly healthy occasional user as a failure. This is also why a lifetime "Founding" license (Lesson 03) fits: you're not fighting monthly churn on a non-monthly habit.
+  </div>
+
+  <h2>The habit hook</h2>
+  <p>Retention is strongest when the product attaches to a moment the user already has. Yours is gorgeous: <strong>the same-night posting window.</strong> Every show creates a fresh, time-pressured need EncoreShot uniquely solves. The job is to make "just shot a show → open EncoreShot" as automatic as "just shot a show → open the camera roll." Nail that association and the next concert brings them back on its own.</p>
+
+  <blockquote>"Retention is by far the most important success factor for a business." — Reforge</blockquote>
+
+  <h2>Check yourself</h2>
+  <div class="quiz">
+    <h3>Three questions</h3>
+    <div class="q" data-correct="0" data-exp="A healthy curve flattens onto a plateau — a core of users keeps returning instead of dropping to zero.">
+      <p>1. A healthy retention curve eventually…</p>
+      <button class="opt">flattens at a plateau</button>
+      <button class="opt">declines to absolute zero</button>
+      <button class="opt">rises forever without limit</button>
+      <p class="fb"></p>
+    </div>
+    <div class="q" data-correct="0" data-exp="A leaky bucket can't be filled by pouring faster — acquisition can't outrun bad retention.">
+      <p>2. More marketing into a leaky bucket…</p>
+      <button class="opt">can't fix bad retention</button>
+      <button class="opt">guarantees long-term growth here</button>
+      <button class="opt">always lowers your churn</button>
+      <p class="fb"></p>
+    </div>
+    <div class="q" data-correct="0" data-exp="Judge occasional users at their natural rhythm — for concert-goers, per show, not per day.">
+      <p>3. For occasional users, measure retention at their…</p>
+      <button class="opt">own natural usage frequency</button>
+      <button class="opt">highest theoretical daily rate</button>
+      <button class="opt">single first-week login window</button>
+      <p class="fb"></p>
+    </div>
+    <p class="score" id="score"></p>
+  </div>
+
+  <div class="win">
+    <span class="tag">Your one win from this lesson</span>
+    You now know to watch the <em>shape</em> of a cohort's retention curve — and to measure EncoreShot's at the per-show frequency, not daily. That single reframe stops you from panic-acquiring to cover a leak, or panic-misreading a healthy occasional user as churn.
+  </div>
+
+  <div class="src">
+    <span class="tag">Primary source — read next (~15 min)</span>
+    <strong><a href="https://www.reforge.com/blog/retention-engagement-growth-silent-killer">"Why Retention Is The Silent Killer" — Reforge / Casey Winters</a></strong><br>
+    The definitive piece on why retention quietly decides everything. Pair with <a href="https://articles.sequoiacap.com/retention">Sequoia's "Retention" primer</a> for the curve archetypes.
+  </div>
+
+  <footer>
+    <strong>Ask me anything.</strong> Try: "what frequency should I anchor EncoreShot retention to?", "how do I build the same-night habit into onboarding?", "what's a 'good' flattening level for a niche app?" Next: <em>Lesson 09 — Time-to-market</em>: shipping without over-building.
+    <div class="nav"><span>← <a href="0007-metrics-that-matter.html">Lesson 07</a></span><span><a href="0009-time-to-market-mvp.html">Lesson 09 →</a></span></div>
+  </footer>
+</div>
+<script>
+document.querySelectorAll('.q').forEach(function(q){var correct=+q.dataset.correct,opts=q.querySelectorAll('.opt'),fb=q.querySelector('.fb'),exp=q.dataset.exp;
+  opts.forEach(function(o,i){o.addEventListener('click',function(){if(q.dataset.done)return;q.dataset.done="1";opts.forEach(function(b){b.disabled=true});
+    if(i===correct){o.classList.add('right');fb.className='fb right';fb.textContent="Right. "+exp;}else{o.classList.add('wrong');opts[correct].classList.add('right');fb.className='fb wrong';fb.textContent="Not quite — "+exp;}score();});});});
+function score(){var qs=document.querySelectorAll('.q'),done=document.querySelectorAll('.q[data-done]').length,el=document.getElementById('score');if(!el)return;
+  if(done<qs.length){el.textContent=done+" / "+qs.length+" answered…";return;}var got=qs.length-document.querySelectorAll('.opt.wrong').length;
+  el.textContent="You got "+got+" / "+qs.length+". "+(got===qs.length?"Locked in. 🎯":"Re-read the bit above any you missed.");}
+</script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 06 — Product-Market Fit</title>
+<style>
+  :root{--paper:#fdfaf3;--ink:#201c17;--ink-2:#5c544a;--rule:#e2dac9;--accent:#9a3b2e;--good:#3f6f52;--bad:#a33}
+  *{box-sizing:border-box}html{font-size:18px}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:42rem;margin:0 auto;padding:3.5rem 1.5rem 6rem}
+  .kicker{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 .5rem}
+  h1{font-size:2.2rem;line-height:1.08;margin:0 0 .5rem;font-weight:600}
+  .dek{color:var(--ink-2);font-style:italic;font-size:1.15rem;margin:0 0 2.2rem}
+  h2{font-size:1.3rem;margin:2.8rem 0 .6rem;font-weight:600}
+  p{margin:0 0 1.1rem}.es{color:var(--accent);font-weight:600}a{color:var(--accent)}strong{font-weight:600}
+  .lead::first-letter{font-size:3.1rem;line-height:.8;float:left;padding:.05em .08em 0 0;font-weight:600;color:var(--accent)}
+  blockquote{margin:1.6rem 0;padding:.2rem 0 .2rem 1.2rem;border-left:3px solid var(--rule);color:var(--ink-2);font-style:italic}
+  .callout{background:#f4eede;border:1px solid var(--rule);border-radius:10px;padding:1.1rem 1.3rem;margin:1.6rem 0}
+  .callout .tag{font-family:ui-monospace,monospace;font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:.4rem}
+  .survey{border:1px solid var(--rule);border-radius:10px;padding:1rem 1.2rem;margin:1.4rem 0;background:#fff}
+  .survey .qn{font-weight:600;margin:0 0 .6rem}
+  .survey ul{margin:0;padding-left:1.1rem;font-size:.92rem;color:var(--ink-2)}
+  .survey li b{color:var(--accent)}
+  .quiz{margin:1rem 0;border:1px solid var(--rule);border-radius:12px;padding:1.3rem 1.4rem;background:#faf4e6}
+  .quiz h3{margin:0 0 .2rem;font-size:1.05rem}
+  .q{margin:1.4rem 0}.q:first-of-type{margin-top:.6rem}.q p{margin:0 0 .6rem;font-weight:600}
+  .opt{display:block;width:100%;text-align:left;font:inherit;font-size:.97rem;background:#fff;border:1px solid var(--rule);border-radius:8px;padding:.6rem .8rem;margin:.4rem 0;cursor:pointer;transition:border-color .15s,background .15s}
+  .opt:hover{border-color:#5c6b8a}.opt.right{border-color:var(--good);background:#eef5ee}.opt.wrong{border-color:var(--bad);background:#f7eaea}.opt:disabled{cursor:default}
+  .fb{font-size:.9rem;margin:.5rem 0 0;min-height:1.2rem}.fb.right{color:var(--good)}.fb.wrong{color:var(--bad)}
+  .score{font-weight:600;margin-top:1rem;color:var(--ink-2)}
+  .win{border:2px solid var(--good);border-radius:12px;padding:1.1rem 1.3rem;margin:2.4rem 0;background:#eef5ee}
+  .win .tag,.src .tag{font-family:ui-monospace,monospace;font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;display:block;margin-bottom:.4rem}.win .tag{color:var(--good)}
+  .src{border:1px dashed var(--accent);border-radius:12px;padding:1.1rem 1.3rem;margin:2rem 0}.src .tag{color:var(--accent)}
+  footer{margin-top:3.5rem;padding-top:1.2rem;border-top:1px solid var(--rule);font-size:.88rem;color:var(--ink-2)}
+  .nav{display:flex;justify-content:space-between;font-family:ui-monospace,monospace;font-size:.8rem;margin-top:1rem}
+  @media print{body{background:#fff}.quiz{break-inside:avoid}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="kicker">Founder School · Lesson 06 · Validation</p>
+  <h1>Product-market fit, and how you'd know</h1>
+  <p class="dek">The most-used and least-understood phrase in startups. Most founders chase it like a vibe. There's a sharper way to see it — and you've already built the instrument that measures it.</p>
+
+  <p class="lead">Marc Andreessen, who coined the term, said you can <em>always feel</em> product-market fit (PMF) when it happens — usage outpaces what you can handle, the product gets pulled out of your hands. True, but useless when you're at 10 users and squinting for signal. So let's make it measurable. PMF is simply this: <strong>you've built something a specific group of people genuinely want and would miss.</strong> The trick is detecting it <em>before</em> the tidal wave.</p>
+
+  <h2>The Sean Ellis test</h2>
+  <p>The cleanest early proxy comes from growth investor Sean Ellis. Ask your active users one question:</p>
+  <div class="survey">
+    <p class="qn">"How would you feel if you could no longer use EncoreShot?"</p>
+    <ul>
+      <li><b>Very disappointed</b></li>
+      <li>Somewhat disappointed</li>
+      <li>Not disappointed</li>
+    </ul>
+  </div>
+  <p>Across ~100 startups, Ellis found a line: when <strong>40% or more</strong> say "very disappointed," growth tends to come; below that, it usually stalls (<a href="https://review.firstround.com/how-superhuman-built-an-engine-to-find-product-market-fit/">First Round Review</a>). It's a rough heuristic, not a law — but it converts a vibe into a number you can move.</p>
+
+  <h2>Superhuman: turning the number into a roadmap</h2>
+  <p>The email startup Superhuman scored just <strong>22%</strong> at first — nowhere near fit. Instead of guessing, founder Rahul Vohra built an engine: segment the "very disappointed" users, learn what they love, find what holds the "somewhat" group back, and rebuild the roadmap around exactly that. Three quarters later: <strong>58%</strong>. The lesson isn't the survey — it's that PMF is something you can <em>systematically engineer</em>, not just wait for.</p>
+
+  <div class="callout">
+    <span class="tag">EncoreShot — you already have the instrument</span>
+    Your voucher cohort funnel (<em>landed → signed up → first session → first export → 7d return → 30d return</em>) is a PMF detector in disguise. The Sean Ellis survey is a one-line addition to your Founding Crew chat. But your <em>truest</em> signal is buried in those last two steps: <strong>do fans come back for their next show?</strong> One delighted export is a nice moment; a fan who returns three concerts later is product-market fit you can feel.
+  </div>
+
+  <h2>Leading vs. lagging signals</h2>
+  <p>A <strong>lagging</strong> signal (revenue, total users) confirms fit after the fact — real, but slow and easy to fake with a launch spike. A <strong>leading</strong> signal (the 40% score, the shape of your retention curve, organic word-of-mouth) tells you <em>early</em>, while you can still act. Chase leading signals. And the most honest leading signal of all is retention — which is exactly Lesson 08.</p>
+
+  <blockquote>"The only thing that matters is getting to product-market fit. … When you are not at PMF, you can always feel its absence." — Marc Andreessen</blockquote>
+
+  <h2>Check yourself</h2>
+  <div class="quiz">
+    <h3>Three questions</h3>
+    <div class="q" data-correct="0" data-exp="Ellis's survey asks how users would feel without the product — 'very disappointed' is the signal.">
+      <p>1. Sean Ellis's PMF test asks if users would be…</p>
+      <button class="opt">very disappointed without it</button>
+      <button class="opt">mildly curious about alternatives</button>
+      <button class="opt">generally happy with everything</button>
+      <p class="fb"></p>
+    </div>
+    <div class="q" data-correct="0" data-exp="≥40% 'very disappointed' is Ellis's rough threshold where growth tends to follow.">
+      <p>2. Ellis's rough PMF threshold is about…</p>
+      <button class="opt">forty percent very disappointed</button>
+      <button class="opt">ninety percent mildly satisfied</button>
+      <button class="opt">ten percent extremely loyal</button>
+      <p class="fb"></p>
+    </div>
+    <div class="q" data-correct="0" data-exp="A retention curve that flattens (people keep coming back) is the most honest PMF signal.">
+      <p>3. The most honest PMF signal over time is…</p>
+      <button class="opt">a flattening retention curve</button>
+      <button class="opt">a spike in signups</button>
+      <button class="opt">a viral launch day</button>
+      <p class="fb"></p>
+    </div>
+    <p class="score" id="score"></p>
+  </div>
+
+  <div class="win">
+    <span class="tag">Your one win from this lesson</span>
+    You can now define PMF as something measurable — the Sean Ellis 40% test plus a flattening retention curve — and you know your voucher funnel already collects the data. "Is EncoreShot working?" is no longer a feeling; it's a survey you can send your Founding Crew this week.
+  </div>
+
+  <div class="src">
+    <span class="tag">Primary source — read next (~20 min)</span>
+    <strong><a href="https://review.firstround.com/how-superhuman-built-an-engine-to-find-product-market-fit/">"How Superhuman Built an Engine to Find Product-Market Fit" — Rahul Vohra, First Round Review</a></strong><br>
+    The best practical playbook for measuring and improving PMF. Pair with <a href="https://www.caseyaccidental.com/p/caseys-guide-to-finding-product-market-fit">Casey Winters' "Guide to Finding Product/Market Fit"</a> for the retention angle.
+  </div>
+
+  <footer>
+    <strong>Ask me anything.</strong> Try: "write the exact 4-question PMF survey for my Founding Crew", "how many responses before I trust the score?", "what if I'm at 25%?" Next: <em>Lesson 07 — The few numbers a solo founder watches</em> (the pirate-metrics funnel, mapped to yours).
+    <div class="nav"><span>← <a href="0005-distribution-gtm.html">Lesson 05</a></span><span><a href="0007-metrics-that-matter.html">Lesson 07 →</a></span></div>
+  </footer>
+</div>
+<script>
+document.querySelectorAll('.q').forEach(function(q){var correct=+q.dataset.correct,opts=q.querySelectorAll('.opt'),fb=q.querySelector('.fb'),exp=q.dataset.exp;
+  opts.forEach(function(o,i){o.addEventListener('click',function(){if(q.dataset.done)return;q.dataset.done="1";opts.forEach(function(b){b.disabled=true});
+    if(i===correct){o.classList.add('right');fb.className='fb right';fb.textContent="Right. "+exp;}else{o.classList.add('wrong');opts[correct].classList.add('right');fb.className='fb wrong';fb.textContent="Not quite — "+exp;}score();});});});
+function score(){var qs=document.querySelectorAll('.q'),done=document.querySelectorAll('.q[data-done]').length,el=document.getElementById('score');if(!el)return;
+  if(done<qs.length){el.textContent=done+" / "+qs.length+" answered…";return;}var got=qs.length-document.querySelectorAll('.opt.wrong').length;
+  el.textContent="You got "+got+" / "+qs.length+". "+(got===qs.length?"Locked in. 🎯":"Re-read the bit above any you missed.");}
+</script>
+</body>
+</html>
