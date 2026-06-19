@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 02 — AI Unit Economics</title>
+<style>
+  :root{--paper:#fdfaf3;--ink:#201c17;--ink-2:#5c544a;--rule:#e2dac9;--accent:#9a3b2e;--good:#3f6f52;--bad:#a33}
+  *{box-sizing:border-box}
+  html{font-size:18px}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:42rem;margin:0 auto;padding:3.5rem 1.5rem 6rem}
+  .kicker{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 .5rem}
+  h1{font-size:2.2rem;line-height:1.08;margin:0 0 .5rem;font-weight:600}
+  .dek{color:var(--ink-2);font-style:italic;font-size:1.15rem;margin:0 0 2.2rem}
+  h2{font-size:1.3rem;margin:2.8rem 0 .6rem;font-weight:600}
+  p{margin:0 0 1.1rem}
+  .es{color:var(--accent);font-weight:600}
+  a{color:var(--accent)}
+  strong{font-weight:600}
+  .lead::first-letter{font-size:3.1rem;line-height:.8;float:left;padding:.05em .08em 0 0;font-weight:600;color:var(--accent)}
+  blockquote{margin:1.6rem 0;padding:.2rem 0 .2rem 1.2rem;border-left:3px solid var(--rule);color:var(--ink-2);font-style:italic}
+  .callout{background:#f4eede;border:1px solid var(--rule);border-radius:10px;padding:1.1rem 1.3rem;margin:1.6rem 0}
+  .callout .tag{font-family:ui-monospace,monospace;font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:.4rem}
+  table{width:100%;border-collapse:collapse;margin:1.4rem 0;font-size:.92rem}
+  th,td{text-align:left;padding:.5rem .6rem;border-bottom:1px solid var(--rule)}
+  th{font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
+  td.num{font-family:ui-monospace,monospace;text-align:right}
+  tr.tot td{border-top:2px solid var(--ink);font-weight:600;border-bottom:none}
+  .quiz{margin:1rem 0;border:1px solid var(--rule);border-radius:12px;padding:1.3rem 1.4rem;background:#faf4e6}
+  .quiz h3{margin:0 0 .2rem;font-size:1.05rem}
+  .q{margin:1.4rem 0}.q:first-of-type{margin-top:.6rem}
+  .q p{margin:0 0 .6rem;font-weight:600}
+  .opt{display:block;width:100%;text-align:left;font:inherit;font-size:.97rem;background:#fff;border:1px solid var(--rule);border-radius:8px;padding:.6rem .8rem;margin:.4rem 0;cursor:pointer;transition:border-color .15s,background .15s}
+  .opt:hover{border-color:#5c6b8a}
+  .opt.right{border-color:var(--good);background:#eef5ee}
+  .opt.wrong{border-color:var(--bad);background:#f7eaea}
+  .opt:disabled{cursor:default}
+  .fb{font-size:.9rem;margin:.5rem 0 0;min-height:1.2rem}
+  .fb.right{color:var(--good)}.fb.wrong{color:var(--bad)}
+  .score{font-weight:600;margin-top:1rem;color:var(--ink-2)}
+  .win{border:2px solid var(--good);border-radius:12px;padding:1.1rem 1.3rem;margin:2.4rem 0;background:#eef5ee}
+  .win .tag,.src .tag{font-family:ui-monospace,monospace;font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;display:block;margin-bottom:.4rem}
+  .win .tag{color:var(--good)}
+  .src{border:1px dashed var(--accent);border-radius:12px;padding:1.1rem 1.3rem;margin:2rem 0}.src .tag{color:var(--accent)}
+  footer{margin-top:3.5rem;padding-top:1.2rem;border-top:1px solid var(--rule);font-size:.88rem;color:var(--ink-2)}
+  .nav{display:flex;justify-content:space-between;font-family:ui-monospace,monospace;font-size:.8rem;margin-top:1rem}
+  @media print{body{background:#fff}.quiz{break-inside:avoid}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="kicker">Founder School · Lesson 02 · AI economics</p>
+  <h1>The real floor under EncoreShot</h1>
+  <p class="dek">Last lesson, cost set your price floor. This lesson we make that floor a real number — and watch it move as a clip gets longer, a model gets fancier, or a resolution gets higher.</p>
+
+  <p class="lead">In Lesson 01 I waved at "~$0.15 a month" as your hobbyist cost. Hand-wavy numbers are dangerous in pricing, so let's earn it. By the end you'll be able to estimate EncoreShot's <a href="../reference/glossary.html#cost">COGS</a> per user, know which knobs move it, and read whether a price keeps you in the black.</p>
+
+  <h2>The one equation that matters: gross margin</h2>
+  <p>Strip everything else away and a business lives or dies on one ratio: <a href="../reference/glossary.html#margin">gross margin</a> = <strong>(price − cost-to-deliver) ÷ price</strong>. Traditional software runs 70–90% because the cost of one more user is nearly zero. AI products run lower — often <strong>20–60%</strong> — because every single use spends real compute. At scaling AI companies, inference alone averages ~23% of revenue (<a href="https://www.cloudzero.com/blog/ai-pricing/">CloudZero, 2026</a>). That compute line is your <a href="../reference/glossary.html#unit-economics">unit economics</a>, and for you it's not fixed — it's <em>variable per asset</em>.</p>
+
+  <h2>What actually drives EncoreShot's per-asset cost</h2>
+  <p>Vision LLMs bill by <strong>tokens</strong> — chunks of input and output. A photo becomes ~1,000 input tokens; a video becomes tokens <em>per second</em> of footage. Current Gemini Flash rates make the levers visible (<a href="https://ai.google.dev/gemini-api/docs/video-understanding">Google docs</a>, perishable):</p>
+  <ul>
+    <li><strong>Clip duration</strong> — video costs ≈ <strong>100 tokens/sec</strong> at low media resolution, ~300/sec at default. A 30-second clip costs 2× a 15-second one. Linear, and it adds up fast.</li>
+    <li><strong>Media resolution & fps</strong> — "default" res is ~3× "low." Your <a href="../reference/glossary.html#cost">scoring config</a> picks this per call, so it's a direct cost dial.</li>
+    <li><strong>Model choice</strong> — Gemini 2.5 Flash is ~$0.30 / million input tokens; 3.5 Flash is ~$1.50 (<a href="https://pricepertoken.com/pricing-page/model/google-gemini-2.5-flash">pricepertoken, 2026</a>). Same job, 5× the bill. This is why you run A/B providers.</li>
+    <li><strong>Output length</strong> — the Reasoning text + 5-dimension JSON. Output tokens cost ~8× input, so verbose prompts quietly hurt.</li>
+  </ul>
+
+  <div class="callout">
+    <span class="tag">EncoreShot — one hobbyist session, real-ish math</span>
+    Say ~50 assets: 20 photos + 30 clips averaging 15s, low-res, on Gemini 2.5 Flash.
+    <table>
+      <thead><tr><th>Item</th><th>Tokens</th><th>Rate</th><th>Cost</th></tr></thead>
+      <tbody>
+        <tr><td>20 photos — input</td><td class="num">22,400</td><td class="num">$0.30/M</td><td class="num">$0.007</td></tr>
+        <tr><td>30 clips ×15s — input</td><td class="num">45,000</td><td class="num">$0.30/M</td><td class="num">$0.014</td></tr>
+        <tr><td>Reasoning — output</td><td class="num">18,000</td><td class="num">$2.50/M</td><td class="num">$0.045</td></tr>
+        <tr class="tot"><td>≈ per session</td><td class="num"></td><td class="num"></td><td class="num">$0.066</td></tr>
+      </tbody>
+    </table>
+    At ~2 shows/month that's ≈ <strong>$0.13/user/mo</strong> in AI — the "$0.15" was honest. But flip to <em>default resolution</em> and 3.5 Flash and the input lines roughly 15× → the floor jumps toward <strong>$0.50–1/mo</strong>. <em>Same product, your config choices moved the floor 4–7×.</em>
+  </div>
+
+  <h2>Two levers you already built</h2>
+  <p><strong>Tiered video scoring</strong> is a margin feature in disguise: the FFmpeg pre-filter throws out too-short / too-dark / silent clips <em>before</em> spending an LLM call. Every rejected clip is pure saved COGS. And <strong>A/B providers</strong> let you keep choosing the cheapest model that still scores well — directly defending the gap between price and cost.</p>
+
+  <h2>The tailwind, and the trap</h2>
+  <p>The wind is at your back: inference for equivalent quality has fallen roughly <strong>10× per year</strong> (<a href="https://www.cloudzero.com/blog/ai-pricing/">a16z / CloudZero</a>). Today's floor is next year's rounding error. The trap (Jevons' paradox): as cost drops you'll <em>do more AI per user</em> — re-scoring, second models, richer video — so total spend can rise even as per-call cost falls. Watch cost <em>per active user</em>, not per call.</p>
+
+  <blockquote>"For every $1M in AI product revenue, ~$230K is consumed by inference before you've paid for anything else." — CloudZero, 2026</blockquote>
+
+  <h2>Check yourself</h2>
+  <p>Recall, don't re-read.</p>
+  <div class="quiz">
+    <h3>Three questions</h3>
+    <div class="q" data-correct="0" data-exp="Gross margin = what's left of a sale after the cost to deliver that sale.">
+      <p>1. Gross margin is the slice of each sale left after…</p>
+      <button class="opt">cost to deliver it</button>
+      <button class="opt">tax on the revenue</button>
+      <button class="opt">discount you offered them</button>
+      <p class="fb"></p>
+    </div>
+    <div class="q" data-correct="0" data-exp="Tokens scale with clip length and resolution — that's what makes the per-asset cost vary.">
+      <p>2. What makes EncoreShot's per-asset cost variable?</p>
+      <button class="opt">clip duration and resolution</button>
+      <button class="opt">customer age and country</button>
+      <button class="opt">weekday and the weather</button>
+      <p class="fb"></p>
+    </div>
+    <div class="q" data-correct="0" data-exp="The pre-filter kills garbage clips before an LLM call is ever spent — pure saved COGS.">
+      <p>3. The tiered video pre-filter saves money by…</p>
+      <button class="opt">rejecting garbage before scoring</button>
+      <button class="opt">charging more per upload</button>
+      <button class="opt">raising the monthly price</button>
+      <p class="fb"></p>
+    </div>
+    <p class="score" id="score"></p>
+  </div>
+
+  <div class="win">
+    <span class="tag">Your one win from this lesson</span>
+    You can now estimate EncoreShot's cost floor — ≈$0.13/user/mo today — <em>and</em> name the four dials that move it (duration, resolution, model, output). That means when you set a $5 price next lesson, you'll know your gross margin is ~97%, and you'll know exactly what would erode it.
+  </div>
+
+  <div class="src">
+    <span class="tag">Primary source — read this next (~20 min)</span>
+    <strong><a href="https://www.news.aakashg.com/p/how-to-price-ai-products">How to Price AI Products: The Complete Guide (2026) — Aakash Gupta</a></strong><br>
+    The clearest practical treatment of pricing when compute cost is variable. Pair with <a href="https://www.revenuecat.com/blog/growth/ai-feature-cost-subscription-app-margins/">RevenueCat on AI-feature margins</a> for the consumer-app angle that matches your hobbyist tier.
+  </div>
+
+  <footer>
+    <strong>Ask me anything.</strong> Good questions for right now: "what gross margin should I actually target?", "should I cap free-tier assets by cost?", "how do I price re-scoring without losing money?" Next: <em>Lesson 03 — Pricing models & packaging</em>, where we turn this floor into actual tiers (Fan / lifetime Founding / voucher).
+    <div class="nav"><span>← <a href="0001-cost-price-value.html">Lesson 01</a></span><span><a href="0003-pricing-models-packaging.html">Lesson 03 →</a></span></div>
+  </footer>
+</div>
+<script>
+document.querySelectorAll('.q').forEach(function(q){
+  var correct=+q.dataset.correct,opts=q.querySelectorAll('.opt'),fb=q.querySelector('.fb'),exp=q.dataset.exp;
+  opts.forEach(function(o,i){o.addEventListener('click',function(){
+    if(q.dataset.done)return;q.dataset.done="1";opts.forEach(function(b){b.disabled=true});
+    if(i===correct){o.classList.add('right');fb.className='fb right';fb.textContent="Right. "+exp;}
+    else{o.classList.add('wrong');opts[correct].classList.add('right');fb.className='fb wrong';fb.textContent="Not quite — "+exp;}
+    score();});});
+});
+function score(){var qs=document.querySelectorAll('.q'),done=document.querySelectorAll('.q[data-done]').length,el=document.getElementById('score');if(!el)return;
+  if(done<qs.length){el.textContent=done+" / "+qs.length+" answered…";return;}
+  var got=qs.length-document.querySelectorAll('.opt.wrong').length;
+  el.textContent="You got "+got+" / "+qs.length+". "+(got===qs.length?"Locked in. 🎯":"Re-read the bit above any you missed.");}
+</script>
+</body>
+</html>
