@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Founder School — Glossary</title>
+<style>
+  :root{
+    --paper:#fdfaf3; --ink:#201c17; --ink-2:#5c544a; --rule:#e2dac9;
+    --accent:#9a3b2e; --good:#3f6f52;
+  }
+  *{box-sizing:border-box}
+  html{font-size:18px}
+  body{
+    margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    line-height:1.55;-webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:46rem;margin:0 auto;padding:4rem 1.5rem 6rem}
+  .kicker{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:.72rem;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--accent);margin:0 0 .4rem}
+  h1{font-size:2.1rem;line-height:1.1;margin:0 0 .3rem;font-weight:600}
+  .sub{color:var(--ink-2);font-style:italic;margin:0 0 2.5rem}
+  dl{margin:0}
+  dt{font-weight:600;font-size:1.12rem;margin:1.9rem 0 .25rem;scroll-margin-top:1.5rem}
+  dt::before{content:"§ ";color:var(--accent);font-family:ui-monospace,monospace;font-size:.85em}
+  dd{margin:0;color:var(--ink-2)}
+  dd .term{color:var(--ink);font-weight:600;font-style:normal}
+  .es{color:var(--accent);font-weight:600}
+  hr{border:0;border-top:1px solid var(--rule);margin:0 0 2rem}
+  footer{margin-top:4rem;padding-top:1.2rem;border-top:1px solid var(--rule);
+    font-size:.85rem;color:var(--ink-2)}
+  a{color:var(--accent)}
+  @media print{body{background:#fff}.wrap{padding:1rem}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="kicker">Founder School · Reference</p>
+  <h1>Glossary</h1>
+  <p class="sub">The vocabulary, defined once and reused everywhere. New terms land here as lessons introduce them. <span class="es">EncoreShot</span>-specific notes in rust.</p>
+  <hr>
+  <dl>
+    <dt id="cost">Cost (COGS)</dt>
+    <dd>What it costs <em>you</em> to deliver the product to one more customer — "Cost of Goods Sold." For software this is mostly infrastructure + per-use compute. <span class="es">For EncoreShot, the dominant cost is the AI scoring call per asset (driven by video duration, resolution, fps, model) + storage/bandwidth — ~$0.15/user/mo for a hobbyist.</span></dd>
+
+    <dt id="price">Price</dt>
+    <dd>The number on the tag — what the customer actually pays. A decision you make, <em>not</em> a fact derived from cost.</dd>
+
+    <dt id="value">Value</dt>
+    <dd>What the outcome is <em>worth</em> to the customer — measured in money, time saved, status, or pain removed. Usually far higher than price, and unrelated to your cost. <span class="es">For EncoreShot: the one Story that does the show justice, posted inside the same-night window; hours of culling collapsed to minutes.</span></dd>
+
+    <dt id="thermometer">Pricing thermometer</dt>
+    <dd>Kevin Hale's (YC) mental model: stack <span class="term">cost</span> (bottom), <span class="term">price</span> (middle), <span class="term">value</span> (top). The gap <em>price − cost</em> is your margin (fuel to grow); the gap <em>value − price</em> is the customer's delight (their reason to buy and stay). Pricing well means placing price in that band on purpose.</dd>
+
+    <dt id="cost-plus">Cost-plus pricing</dt>
+    <dd>Setting price = cost + a markup. Feels safe and "fair," but ignores value entirely and usually leaves most of the money on the table. <span class="es">The classic engineer trap: "my AI costs $X/asset, so I'll charge $X + margin."</span></dd>
+
+    <dt id="value-based">Value-based pricing</dt>
+    <dd>Setting price from what the outcome is <em>worth to the customer</em>, anchored against alternatives — not from your cost. Hale's rule of thumb: aim for perceived value ≈ 10× price.</dd>
+
+    <dt id="margin">Margin (gross margin)</dt>
+    <dd>The slice of each sale left after the cost of delivering it: <span class="term">(price − cost) ÷ price</span>. Traditional SaaS runs 70–90%; AI products often run lower (20–60%) because compute per use is real and variable. The fuel that pays for everything else.</dd>
+
+    <dt id="wtp">Willingness to pay (WTP)</dt>
+    <dd>The most a given customer would pay before walking away. Differs by segment. <span class="es">EncoreShot hobbyist WTP ≈ $0–5/mo or one-time; Pro ≈ $12–25/mo — same product, very different ceilings.</span></dd>
+
+    <dt id="unit-economics">Unit economics</dt>
+    <dd>The profit/loss on a single unit (one customer, one transaction) once you strip away fixed costs. If the unit doesn't make sense, scaling just loses money faster. <span class="es">For EncoreShot the "unit" is one user-month: revenue vs. their AI + storage cost.</span></dd>
+
+    <dt id="value-metric">Value metric</dt>
+    <dd>The unit you charge by — per user, per GB, per export. The golden rule: it should rise with the <em>value</em> the customer gets (so paying more never feels like punishment), and ideally track your cost too. <span class="es">For EncoreShot, "exports" or "shows" is a better meter than "assets scored" — the latter tracks your cost but punishes the user for shooting more.</span></dd>
+
+    <dt id="fence">Price fence</dt>
+    <dd>A feature or limit that separates pricing tiers and gently stops a high-value customer from buying the cheap plan (e.g. "Free = 1 show"). The logic that makes good-better-best tiers hold instead of everyone trading down.</dd>
+
+    <dt id="aha">Aha moment</dt>
+    <dd>The instant a user first <em>feels</em> the product's core value. Everything in onboarding, free-tier design, and referral timing should aim to reach it fast — and ask for money / referrals only <em>after</em> it. <span class="es">For EncoreShot: seeing their own bad footage become a Story-ready keeper.</span></dd>
+
+    <dt id="cac">CAC</dt>
+    <dd>Customer Acquisition Cost — the average spend to win one customer. <span class="es">EncoreShot's wedge is "zero-CAC by design": in-person seeding costs time, not ad dollars.</span></dd>
+
+    <dt id="traction-channel">Traction channel</dt>
+    <dd>One of the ~19 distinct ways to reach customers (events, SEO, content, referral, ads, PR, community…). The Bullseye framework says find the <em>one</em> that works at your stage and focus there, rather than dabbling in all of them.</dd>
+
+    <dt id="mom-test">The Mom Test</dt>
+    <dd>A discipline for customer interviews (Rob Fitzpatrick): talk about their life not your idea; ask about specific past behaviour not future opinions; talk less. Sort answers into <strong>facts</strong> (trust) vs <strong>fluff</strong> (ignore). Compliments are fluff.</dd>
+
+    <dt id="referral-affiliate">Referral vs. affiliate</dt>
+    <dd>A <span class="term">referral</span> is a happy <em>user</em> sharing for a perk (best: two-sided reward, triggered after the aha moment). An <span class="term">affiliate</span> is an outsider paid commission to promote you — a later-stage lever, not an early-user move.</dd>
+  </dl>
+
+  <footer>
+    Part of <strong>Founder School</strong>. Terms are introduced in <a href="../lessons/0001-cost-price-value.html">lessons</a> and collected here for fast lookup.
+    Ask your teacher to expand any entry.
+  </footer>
+</div>
+</body>
+</html>
