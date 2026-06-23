@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 07 — Metrics That Matter</title>
+<style>
+  :root{--paper:#fdfaf3;--ink:#201c17;--ink-2:#5c544a;--rule:#e2dac9;--accent:#9a3b2e;--good:#3f6f52;--bad:#a33}
+  *{box-sizing:border-box}html{font-size:18px}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:42rem;margin:0 auto;padding:3.5rem 1.5rem 6rem}
+  .kicker{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 .5rem}
+  h1{font-size:2.2rem;line-height:1.08;margin:0 0 .5rem;font-weight:600}
+  .dek{color:var(--ink-2);font-style:italic;font-size:1.15rem;margin:0 0 2.2rem}
+  h2{font-size:1.3rem;margin:2.8rem 0 .6rem;font-weight:600}
+  p{margin:0 0 1.1rem}.es{color:var(--accent);font-weight:600}a{color:var(--accent)}strong{font-weight:600}
+  .lead::first-letter{font-size:3.1rem;line-height:.8;float:left;padding:.05em .08em 0 0;font-weight:600;color:var(--accent)}
+  blockquote{margin:1.6rem 0;padding:.2rem 0 .2rem 1.2rem;border-left:3px solid var(--rule);color:var(--ink-2);font-style:italic}
+  .callout{background:#f4eede;border:1px solid var(--rule);border-radius:10px;padding:1.1rem 1.3rem;margin:1.6rem 0}
+  .callout .tag{font-family:ui-monospace,monospace;font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:.4rem}
+  .funnel{margin:1.4rem 0;font-size:.92rem}
+  .fl{display:flex;align-items:center;gap:.7rem;padding:.45rem .7rem;border-radius:8px;margin:.3rem 0;background:#fff;border:1px solid var(--rule)}
+  .fl .let{font-family:ui-monospace,monospace;font-weight:600;color:var(--accent);width:1.4rem}
+  .fl .es-step{margin-left:auto;font-size:.82rem;color:var(--ink-2);font-style:italic}
+  .quiz{margin:1rem 0;border:1px solid var(--rule);border-radius:12px;padding:1.3rem 1.4rem;background:#faf4e6}
+  .quiz h3{margin:0 0 .2rem;font-size:1.05rem}
+  .q{margin:1.4rem 0}.q:first-of-type{margin-top:.6rem}.q p{margin:0 0 .6rem;font-weight:600}
+  .opt{display:block;width:100%;text-align:left;font:inherit;font-size:.97rem;background:#fff;border:1px solid var(--rule);border-radius:8px;padding:.6rem .8rem;margin:.4rem 0;cursor:pointer;transition:border-color .15s,background .15s}
+  .opt:hover{border-color:#5c6b8a}.opt.right{border-color:var(--good);background:#eef5ee}.opt.wrong{border-color:var(--bad);background:#f7eaea}.opt:disabled{cursor:default}
+  .fb{font-size:.9rem;margin:.5rem 0 0;min-height:1.2rem}.fb.right{color:var(--good)}.fb.wrong{color:var(--bad)}
+  .score{font-weight:600;margin-top:1rem;color:var(--ink-2)}
+  .win{border:2px solid var(--good);border-radius:12px;padding:1.1rem 1.3rem;margin:2.4rem 0;background:#eef5ee}
+  .win .tag,.src .tag{font-family:ui-monospace,monospace;font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;display:block;margin-bottom:.4rem}.win .tag{color:var(--good)}
+  .src{border:1px dashed var(--accent);border-radius:12px;padding:1.1rem 1.3rem;margin:2rem 0}.src .tag{color:var(--accent)}
+  footer{margin-top:3.5rem;padding-top:1.2rem;border-top:1px solid var(--rule);font-size:.88rem;color:var(--ink-2)}
+  .nav{display:flex;justify-content:space-between;font-family:ui-monospace,monospace;font-size:.8rem;margin-top:1rem}
+  @media print{body{background:#fff}.quiz{break-inside:avoid}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="kicker">Founder School · Lesson 07 · Metrics</p>
+  <h1>The few numbers a solo founder watches</h1>
+  <p class="dek">You can measure everything. You should measure almost nothing. The skill is knowing which handful of numbers actually steer the ship — and ignoring the flattering rest.</p>
+
+  <p class="lead">As an engineer you can instrument anything, and that's the danger: dashboards full of numbers that <em>feel</em> like progress and change <em>nothing</em>. Dave McClure named the antidote in 2007 — <strong>Pirate Metrics</strong>, or AARRR, the only five numbers that matter (<a href="https://amplitude.com/blog/pirate-metrics-framework">Amplitude</a>). Five stages of one customer's journey, each a question you can actually answer.</p>
+
+  <h2>AARRR — the five stages</h2>
+  <div class="funnel">
+    <div class="fl"><span class="let">A</span><span><b>Acquisition</b> — how do people find you?</span><span class="es-step">voucher handed / landed</span></div>
+    <div class="fl"><span class="let">A</span><span><b>Activation</b> — do they hit the first "wow"?</span><span class="es-step">first export</span></div>
+    <div class="fl"><span class="let">R</span><span><b>Retention</b> — do they come back?</span><span class="es-step">return next show</span></div>
+    <div class="fl"><span class="let">R</span><span><b>Referral</b> — do they tell others?</span><span class="es-step">voucher shared</span></div>
+    <div class="fl"><span class="let">R</span><span><b>Revenue</b> — will they pay?</span><span class="es-step">paid conversion</span></div>
+  </div>
+  <p>Notice this is the same journey from Lesson 04's commitment ladder and Lesson 05's referral loop — AARRR just gives it a measurable name at each rung. Your GTM analytics floor already tracks most of it.</p>
+
+  <h2>Vanity vs. actionable</h2>
+  <p>A <a href="../reference/glossary.html#vanity-metric">vanity metric</a> looks impressive and guides no decision: total signups, page views, Instagram likes. An <strong>actionable</strong> metric ties to a choice you'd make differently. The test: <em>"if this number doubled tomorrow, what would I do?"</em> If the answer is "feel good," it's vanity. "Total vouchers handed out" is vanity; "what % of handed vouchers reach a first export" tells you whether your funnel leaks — and where.</p>
+
+  <div class="callout">
+    <span class="tag">EncoreShot — pick your one North Star</span>
+    A solo founder can't optimize five things at once. At your stage, the metric that best captures real value delivered is <strong>weekly/monthly first-export rate</strong> — fans who got an actual keeper out the door. It sits at Activation (proves the magic works) and feeds Retention (the ones who'll return). Acquisition without activation is just noise; revenue comes later. Make that one number the heartbeat of your Founding Crew updates.
+  </div>
+
+  <h2>One number, for now</h2>
+  <p>The "North Star Metric" idea: choose the <em>single</em> number that best proxies the value customers get, and orient everything around it. It changes as you grow (activation now → retention later → revenue after pricing). The discipline is having <strong>one</strong>, not ten. Everything else is a supporting diagnostic you glance at only when the North Star moves.</p>
+
+  <blockquote>"Focus on the metrics that directly affect the health of your business — ignore the superficial ones." — Dave McClure, Startup Metrics for Pirates</blockquote>
+
+  <h2>Check yourself</h2>
+  <div class="quiz">
+    <h3>Three questions</h3>
+    <div class="q" data-correct="0" data-exp="Activation = the user takes the key value action — your first 'wow' moment.">
+      <p>1. In AARRR, "activation" measures whether users…</p>
+      <button class="opt">take the key action</button>
+      <button class="opt">hear about your product</button>
+      <button class="opt">tell their friends about</button>
+      <p class="fb"></p>
+    </div>
+    <div class="q" data-correct="0" data-exp="A vanity metric flatters but informs no decision — if it doubled, you'd only feel good.">
+      <p>2. A "vanity metric" is one that…</p>
+      <button class="opt">looks good, guides nothing</button>
+      <button class="opt">predicts real business health</button>
+      <button class="opt">tracks paying customer retention</button>
+      <p class="fb"></p>
+    </div>
+    <div class="q" data-correct="0" data-exp="The first export is EncoreShot's real 'wow' — the natural activation event.">
+      <p>3. EncoreShot's natural activation event is the…</p>
+      <button class="opt">first successful export posted</button>
+      <button class="opt">landing page page-view</button>
+      <button class="opt">newsletter email signup confirmed</button>
+      <p class="fb"></p>
+    </div>
+    <p class="score" id="score"></p>
+  </div>
+
+  <div class="win">
+    <span class="tag">Your one win from this lesson</span>
+    You can now collapse "what should I track?" into one North Star (first-export rate) plus five AARRR diagnostics — and you can spot a vanity metric on sight. That protects the scarcest thing a solo founder has: attention.
+  </div>
+
+  <div class="src">
+    <span class="tag">Primary source — read next (~15 min)</span>
+    <strong><a href="https://amplitude.com/blog/pirate-metrics-framework">"AARRR: The Pirate Metrics Framework" — Amplitude</a></strong><br>
+    The clearest modern walkthrough. For the original, skim McClure's <a href="https://mcgaw.io/wp-content/uploads/2016/04/PirateMetrics_Final.pdf">"Startup Metrics for Pirates" deck</a>.
+  </div>
+
+  <footer>
+    <strong>Ask me anything.</strong> Try: "what should my North Star be pre-launch vs post?", "which of my voucher funnel steps is the riskiest?", "is paid conversion even worth tracking yet?" Next: <em>Lesson 08 — Retention &amp; churn</em>, the silent engine under all of this.
+    <div class="nav"><span>← <a href="0006-product-market-fit.html">Lesson 06</a></span><span><a href="0008-retention-churn.html">Lesson 08 →</a></span></div>
+  </footer>
+</div>
+<script>
+document.querySelectorAll('.q').forEach(function(q){var correct=+q.dataset.correct,opts=q.querySelectorAll('.opt'),fb=q.querySelector('.fb'),exp=q.dataset.exp;
+  opts.forEach(function(o,i){o.addEventListener('click',function(){if(q.dataset.done)return;q.dataset.done="1";opts.forEach(function(b){b.disabled=true});
+    if(i===correct){o.classList.add('right');fb.className='fb right';fb.textContent="Right. "+exp;}else{o.classList.add('wrong');opts[correct].classList.add('right');fb.className='fb wrong';fb.textContent="Not quite — "+exp;}score();});});});
+function score(){var qs=document.querySelectorAll('.q'),done=document.querySelectorAll('.q[data-done]').length,el=document.getElementById('score');if(!el)return;
+  if(done<qs.length){el.textContent=done+" / "+qs.length+" answered…";return;}var got=qs.length-document.querySelectorAll('.opt.wrong').length;
+  el.textContent="You got "+got+" / "+qs.length+". "+(got===qs.length?"Locked in. 🎯":"Re-read the bit above any you missed.");}
+</script>
+</body>
+</html>
