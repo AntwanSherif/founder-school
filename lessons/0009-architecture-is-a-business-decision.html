@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 09 — Architecture is a Business Decision</title>
+<style>
+  :root{--paper:#fdfaf3;--ink:#201c17;--ink-2:#5c544a;--rule:#e2dac9;--accent:#9a3b2e;--good:#3f6f52;--bad:#a33}
+  *{box-sizing:border-box}html{font-size:18px}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:42rem;margin:0 auto;padding:3.5rem 1.5rem 6rem}
+  .kicker{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 .5rem}
+  h1{font-size:2.2rem;line-height:1.08;margin:0 0 .5rem;font-weight:600}
+  .dek{color:var(--ink-2);font-style:italic;font-size:1.15rem;margin:0 0 2.2rem}
+  h2{font-size:1.3rem;margin:2.8rem 0 .6rem;font-weight:600}
+  p{margin:0 0 1.1rem}.es{color:var(--accent);font-weight:600}a{color:var(--accent)}strong{font-weight:600}
+  .lead::first-letter{font-size:3.1rem;line-height:.8;float:left;padding:.05em .08em 0 0;font-weight:600;color:var(--accent)}
+  blockquote{margin:1.6rem 0;padding:.2rem 0 .2rem 1.2rem;border-left:3px solid var(--rule);color:var(--ink-2);font-style:italic}
+  .callout{background:#f4eede;border:1px solid var(--rule);border-radius:10px;padding:1.1rem 1.3rem;margin:1.6rem 0}
+  .callout .tag{font-family:ui-monospace,monospace;font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:.4rem}
+  .concept-grid{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin:1.4rem 0}
+  .concept{border:1px solid var(--rule);border-radius:10px;padding:.9rem 1rem;background:#fff}
+  .concept .num{font-family:ui-monospace,monospace;font-size:.7rem;letter-spacing:.12em;color:var(--accent);text-transform:uppercase;display:block;margin-bottom:.25rem}
+  .concept b{display:block;margin-bottom:.25rem;font-size:.95rem}
+  .concept span{font-size:.82rem;color:var(--ink-2)}
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin:1.4rem 0}
+  .col{border:1px solid var(--rule);border-radius:10px;padding:.9rem 1rem}
+  .col .label{font-family:ui-monospace,monospace;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);display:block;margin-bottom:.4rem}
+  .col.good{border-color:var(--good);background:#eef5ee}.col.good .label{color:var(--good)}
+  .col.bad{border-color:var(--bad);background:#f7eaea}.col.bad .label{color:var(--bad)}
+  .quiz{margin:1rem 0;border:1px solid var(--rule);border-radius:12px;padding:1.3rem 1.4rem;background:#faf4e6}
+  .quiz h3{margin:0 0 .2rem;font-size:1.05rem}
+  .q{margin:1.4rem 0}.q:first-of-type{margin-top:.6rem}.q p{margin:0 0 .6rem;font-weight:600}
+  .opt{display:block;width:100%;text-align:left;font:inherit;font-size:.97rem;background:#fff;border:1px solid var(--rule);border-radius:8px;padding:.6rem .8rem;margin:.4rem 0;cursor:pointer;transition:border-color .15s,background .15s}
+  .opt:hover{border-color:#5c6b8a}.opt.right{border-color:var(--good);background:#eef5ee}.opt.wrong{border-color:var(--bad);background:#f7eaea}.opt:disabled{cursor:default}
+  .fb{font-size:.9rem;margin:.5rem 0 0;min-height:1.2rem}.fb.right{color:var(--good)}.fb.wrong{color:var(--bad)}
+  .score{font-weight:600;margin-top:1rem;color:var(--ink-2)}
+  .win{border:2px solid var(--good);border-radius:12px;padding:1.1rem 1.3rem;margin:2.4rem 0;background:#eef5ee}
+  .win .tag,.src .tag{font-family:ui-monospace,monospace;font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;display:block;margin-bottom:.4rem}.win .tag{color:var(--good)}
+  .src{border:1px dashed var(--accent);border-radius:12px;padding:1.1rem 1.3rem;margin:2rem 0}.src .tag{color:var(--accent)}
+  footer{margin-top:3.5rem;padding-top:1.2rem;border-top:1px solid var(--rule);font-size:.88rem;color:var(--ink-2)}
+  .nav{display:flex;justify-content:space-between;font-family:ui-monospace,monospace;font-size:.8rem;margin-top:1rem}
+  @media(max-width:540px){.concept-grid{grid-template-columns:1fr}.two-col{grid-template-columns:1fr}}
+  @media print{body{background:#fff}.quiz{break-inside:avoid}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="kicker">Founder School · Lesson 09 · Strategy</p>
+  <h1>Architecture is a business decision</h1>
+  <p class="dek">Every technical choice carries a cost, a moat, a margin structure, and a TAM — usually invisibly. This lesson makes the invisible ledger visible.</p>
+
+  <p class="lead">A technical decision looks like an engineering question but lands on the income statement. Where does the compute run? How many codebases do you maintain? When does the upload happen? Each of these has a correct business answer, not just a correct software answer. The seven concepts below came directly out of an EncoreShot architecture session — and every one of them changed something about the business, not just the code.</p>
+
+  <h2>1. The proxy-media trick — don't be fooled by the magic</h2>
+  <p>Open a 1.5 GB concert video in a popular editing app and it loads in two seconds. How? It didn't upload 1.5 GB. It created a tiny local <strong>proxy</strong> — a low-resolution thumbnail-scale stand-in — and is showing you that. The full resolution footage stays exactly where it was. The impression of power is real; the explanation is simple.</p>
+  <p>This pattern repeats everywhere in software. A feature that looks expensive or technically impressive is often a thin sleight of hand over something cheap. <strong>Before you feel intimidated by a competitor's "magic," ask what the trick is.</strong> If you can name the trick, you can either replicate it cheaply or skip it entirely. The business lesson: don't burn engineering time solving a problem your competitor didn't actually solve — they just made it look solved.</p>
+
+  <h2>2. Mechanical vs. semantic AI — and why the hard problem is your moat</h2>
+  <p>Most AI in media tools is <strong>mechanical</strong>: it answers structural questions about the file. Where are the beats? Where are the cuts? How loud is the bass drop? These questions are answered by analyzing waveforms and frame transitions — no understanding of the content required. This is genuinely useful and genuinely table-stakes.</p>
+  <p>EncoreShot answers a different kind of question: <em>Is this a good shot of Beyoncé?</em> That's a <strong>semantic</strong> question. It requires understanding what's happening in the frame — expression, sharpness, composition, proximity to the moment — not just where the frames are. Semantic AI is harder, more expensive to run, and harder to replicate. That difficulty is the moat. The reason EncoreShot needs the cloud while a beat-detector can run on a laptop is also the reason EncoreShot is defensible while the beat-detector is a commodity.</p>
+
+  <div class="callout">
+    <span class="tag">The moat is a cost too</span>
+    Semantic AI costs more per call than mechanical AI. That's not a bug — it's the price of the moat. Keep these in the same mental sentence: the capability that justifies a premium price is also the capability that raises your <a href="../reference/glossary.html#unit-economics">unit cost</a>. The goal is to make sure the price premium exceeds the cost premium — and keep that gap wide.
+  </div>
+
+  <h2>3. Headless core + thin shells — one engine, many personas</h2>
+  <p>The cleanest architecture for a product that might run on web, iOS, and eventually Android is to build a <strong>platform-agnostic core</strong> — the scoring engine, the export logic, the session model — and wrap it in thin per-platform shells that handle UI and device APIs.</p>
+  <p>The business value is about duplication and personas. Without this separation, adding iOS means rewriting the core in Swift. With it, iOS is a thin shell calling the same engine. The same core can also serve different market segments without changing: swap the scoring prompt and you've got a wedding-photographer tier with minimal new engineering. One engine, many faces. This is the architecture of capital efficiency — you build the hard thing once and expand the TAM by layering surface area on top, not by rebuilding from scratch.</p>
+
+  <h2>4. The cull-then-upload funnel — and its honest limit</h2>
+  <p>The most expensive thing in cloud AI is uploading data you didn't need to upload. The cull-then-upload funnel addresses this: run a cheap <strong>Tier 0</strong> cull locally first (mechanical: too short, too dark, silent, blurry) to discard the obvious rejects, then send only the survivors to the cloud for Tier 1 semantic scoring.</p>
+  <p>The funnel genuinely shrinks the upload and the cloud bill. But here's the part worth saying plainly: it <em>shrinks</em> the upload, it doesn't eliminate it. The valuable semantic judgment — the thing that makes EncoreShot different from a local tool — needs the cloud. You can cut the input set by 60–80%, but the cloud is still the destination for everything that matters. The business benefit is real (lower COGS, better weak-network UX, faster perceived load); the business model still rests on cloud AI. Don't let the optimization obscure the dependency.</p>
+
+  <div class="two-col">
+    <div class="col good">
+      <span class="label">What the funnel does</span>
+      Cuts cloud input by 60–80% · reduces per-session cost · feels snappier on bad connections
+    </div>
+    <div class="col bad">
+      <span class="label">What it doesn't do</span>
+      Eliminate cloud need · make the product offline-capable · remove the AI cost line from unit economics
+    </div>
+  </div>
+
+  <h2>5. On-device capability gradient + cloud as the equalizer</h2>
+  <p>Not all devices are equal. An iPhone 16 Pro has a neural engine that can run a surprisingly capable small model locally. A mid-range Android doesn't. Mobile web on the same device is weaker still. If your product relies on local compute, your product works great for one slice of users and poorly for everyone else.</p>
+  <p>The cloud equalizer solves this elegantly: the Tier 1 semantic scoring runs in the cloud and is <strong>identical everywhere</strong>. An iPhone user and a mobile-web user see the same AI output. This is progressive enhancement as business strategy — you can add a fast local Tier 0 pre-filter that's better on flagship hardware, while the premium experience never fragments. Every user, every device, every carrier quality, gets the same smart result. That's a larger TAM than "works great if you have an iPhone."</p>
+
+  <h2>6. Cost ≠ upload — read your two meters separately</h2>
+  <p>Gemini's 1 fps sampling strategy cuts the token bill. A 30-second clip sampled at 1 frame per second sends 30 frames to the model instead of ~900. That is a real, meaningful reduction in <strong>AI inference cost</strong>. It is not a reduction in upload bytes — the video still travels to the server at whatever resolution it's stored in.</p>
+  <p>This distinction maps onto the two cost meters in any cloud-AI product: <strong>storage/transfer</strong> (measured in GB) and <strong>inference</strong> (measured in tokens). They're billed separately, they respond to different optimizations, and they're easy to conflate. Cutting fps is an inference optimization. Compressing the video before upload is a transfer optimization. Rejecting the clip before upload is both. Always know which meter you're moving — if you optimize transfer thinking you're cutting inference, you'll underprice. See <a href="0002-ai-unit-economics.html">Lesson 02</a> for the full cost breakdown.</p>
+
+  <div class="callout">
+    <span class="tag">The two meters at a glance</span>
+    <strong>Meter 1 — inference tokens:</strong> driven by frames sent, resolution of those frames, model tier, output length. Cut with fps sampling, resolution downsizing, prompt brevity, model selection.<br><br>
+    <strong>Meter 2 — storage &amp; transfer:</strong> driven by file size, upload frequency, CDN egress. Cut with compression, pre-upload reject, incremental sync.
+  </div>
+
+  <h2>7. Clean seams make deferral free — and persona-expansion cheap</h2>
+  <p>The best thing about a well-architected product isn't what it can do — it's what you can <em>not</em> build yet. Clean seams between components (scoring engine, export logic, device shell, cloud tier) mean you can defer a feature, swap a provider, or skip a platform entirely without touching anything else. Deferral is capital efficiency: every week you don't build iOS is a week you spend validating the business model on web.</p>
+  <p>The same seams also unlock a quiet TAM play. Swap the scoring prompt from "concert photography" to "wedding photography" and you've served a new segment with different pricing power. That segment likely has <strong>higher <a href="../reference/glossary.html#wtp">willingness-to-pay</a></strong> than casual fan-shooters: a wedding photographer's keeper is a $5,000 commission; a fan's keeper is an Instagram post. The architecture doesn't know the difference — it just scores. The business decides which prompt to load, and at what price.</p>
+
+  <blockquote>"Architecture is the decisions that are hard to change later." — Martin Fowler<br>Which means the ones that were easy to defer were never really architectural — they were just features.</blockquote>
+
+  <h2>Putting it together: the business ledger</h2>
+  <div class="concept-grid">
+    <div class="concept">
+      <span class="num">Concept 1</span>
+      <b>Proxy trick</b>
+      <span>Diagnose before you fear. Know the trick.</span>
+    </div>
+    <div class="concept">
+      <span class="num">Concept 2</span>
+      <b>Semantic moat</b>
+      <span>Hard = defensible. The cost is the price of the moat.</span>
+    </div>
+    <div class="concept">
+      <span class="num">Concept 3</span>
+      <b>Headless core</b>
+      <span>Build once, surface many times. TAM expands cheaply.</span>
+    </div>
+    <div class="concept">
+      <span class="num">Concept 4</span>
+      <b>Cull-then-upload</b>
+      <span>Shrinks cost. Doesn't eliminate the cloud. Know the limit.</span>
+    </div>
+    <div class="concept">
+      <span class="num">Concept 5</span>
+      <b>Cloud equalizer</b>
+      <span>Same AI output for every device. No TAM fragmentation.</span>
+    </div>
+    <div class="concept">
+      <span class="num">Concept 6</span>
+      <b>Two cost meters</b>
+      <span>Tokens ≠ bytes. Optimize the right meter for each win.</span>
+    </div>
+    <div class="concept" style="grid-column:1/-1">
+      <span class="num">Concept 7</span>
+      <b>Clean seams = deferral = optionality</b>
+      <span>Defer safely → preserve capital. Swap prompts → unlock new segments at near-zero marginal cost.</span>
+    </div>
+  </div>
+
+  <h2>Check yourself</h2>
+  <div class="quiz">
+    <h3>Four questions</h3>
+    <div class="q" data-correct="2" data-exp="Semantic AI answers 'is this a good shot?' — that requires understanding content, not just file structure.">
+      <p>1. Mechanical AI answers structural questions. EncoreShot's moat comes from answering…</p>
+      <button class="opt">cheaper questions</button>
+      <button class="opt">the same structural questions faster</button>
+      <button class="opt">semantic questions about content quality</button>
+      <p class="fb"></p>
+    </div>
+    <div class="q" data-correct="0" data-exp="The cull-then-upload funnel shrinks the upload by rejecting obvious rejects locally first — but the cloud still does the semantic work.">
+      <p>2. The cull-then-upload funnel…</p>
+      <button class="opt">shrinks the upload; doesn't eliminate cloud dependency</button>
+      <button class="opt">eliminates all cloud AI costs</button>
+      <button class="opt">makes the product work fully offline</button>
+      <p class="fb"></p>
+    </div>
+    <div class="q" data-correct="1" data-exp="1fps sampling cuts the token bill (fewer frames → fewer input tokens). The upload bytes are unaffected — the video still travels at its stored resolution.">
+      <p>3. Sampling video at 1fps reduces…</p>
+      <button class="opt">upload size in bytes</button>
+      <button class="opt">inference token cost</button>
+      <button class="opt">export file quality</button>
+      <p class="fb"></p>
+    </div>
+    <div class="q" data-correct="2" data-exp="Clean seams let you defer features without touching other components — and swap prompts to serve a new segment without rebuilding the engine.">
+      <p>4. Clean seams between components enable…</p>
+      <button class="opt">better error messages</button>
+      <button class="opt">faster individual API calls</button>
+      <button class="opt">cheap deferral and cheap persona-expansion</button>
+      <p class="fb"></p>
+    </div>
+    <p class="score" id="score"></p>
+  </div>
+
+  <div class="win">
+    <span class="tag">Your one win from this lesson</span>
+    You can now read an architecture decision as a business decision: what does this cost, what does it protect, and what does it leave open? The headless core protects TAM optionality; the cloud tier equalizes device fragmentation; the clean seams let you defer and pivot cheaply. Engineering choices and financial choices are the same choice, made at the same time.
+  </div>
+
+  <div class="src">
+    <span class="tag">Primary source — read next (~20 min)</span>
+    <strong><a href="https://on-device-llms.pages.dev/">On-Device LLMs: State of the Union — Varun Chandrasekhar (2025)</a></strong><br>
+    A clear-eyed survey of what's actually runnable locally today (model families, hardware requirements, speed benchmarks) and what still needs the cloud. Essential context for understanding where the capability gradient sits right now — and how fast it's moving — so you can time the native sequencing decision with data instead of intuition.
+  </div>
+
+  <footer>
+    <strong>Ask me anything.</strong> Good threads from here: "when exactly should I start the iOS shell?", "how do I price the wedding-photographer persona relative to the concert tier?", "what's the right Tier 0 rejection threshold to maximize cost savings without sacrificing recall?" — and when you're ready, say "advisor mode" and I'll assess where EncoreShot sits against those thresholds. Next: <em>Lesson 10 — Negotiation basics</em>: pricing conversations with early customers.
+    <div class="nav"><span>← <a href="0008-retention-churn.html">Lesson 08</a></span><span><a href="0010-negotiation.html">Lesson 10 →</a></span></div>
+  </footer>
+</div>
+<script>
+document.querySelectorAll('.q').forEach(function(q){var correct=+q.dataset.correct,opts=q.querySelectorAll('.opt'),fb=q.querySelector('.fb'),exp=q.dataset.exp;
+  opts.forEach(function(o,i){o.addEventListener('click',function(){if(q.dataset.done)return;q.dataset.done="1";opts.forEach(function(b){b.disabled=true});
+    if(i===correct){o.classList.add('right');fb.className='fb right';fb.textContent="Right. "+exp;}else{o.classList.add('wrong');opts[correct].classList.add('right');fb.className='fb wrong';fb.textContent="Not quite — "+exp;}score();});});});
+function score(){var qs=document.querySelectorAll('.q'),done=document.querySelectorAll('.q[data-done]').length,el=document.getElementById('score');if(!el)return;
+  if(done<qs.length){el.textContent=done+" / "+qs.length+" answered…";return;}var got=qs.length-document.querySelectorAll('.opt.wrong').length;
+  el.textContent="You got "+got+" / "+qs.length+". "+(got===qs.length?"Locked in. 🎯":"Re-read the bit above any you missed.");}
+</script>
+</body>
+</html>
